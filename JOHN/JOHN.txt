@@ -3,25 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apex計畫 | 強尼車坊互動式戰略儀表板 (極黑版)</title>
+    <title>Apex計畫 | 強尼車坊互動式戰略儀表板</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: True Black & Cyber Glow -->
-    <!-- Application Structure Plan: The SPA is designed as an interactive dashboard with four main sections navigable via a sticky header: 1. **戰略總覽 (Overview)**: A high-level introduction combining the core mission, challenges, and target audience to set the stage. 2. **市場分析 (Market Analysis)**: An interactive section for exploring SWOT and competitive landscapes, allowing users to actively compare and understand the market position. 3. **內容引擎 (Content Engine)**: A focused area detailing the three content pillars and an interactive calendar, making the creative strategy tangible and easy to grasp. 4. **成長藍圖 (Growth Blueprint)**: A visual, phased roadmap combining platform strategy, ad spend, and an interactive KPI chart to demonstrate the path to success. This structure was chosen to transform the linear presentation into a dynamic, user-driven exploration tool, enabling stakeholders to digest complex information in a non-linear, intuitive way. -->
+    <!-- Application Structure Plan: The SPA is designed as an interactive dashboard with five main sections navigable via a sticky header: 1. **戰略總覽**: High-level mission and challenges. 2. **市場分析**: Interactive SWOT and competitor analysis. 3. **內容引擎**: Tabbed view of content pillars with visual mockups. 4. **成長藍圖**: Phased plan with an interactive KPI chart. 5. **合作方案**: A new section detailing partnership options and value proposition. This structure logically flows from high-level strategy to concrete execution and business proposals, allowing a non-linear, user-driven exploration of the entire plan in a single, digestible view. -->
     <!-- Visualization & Content Choices: 
-        - Report Info: SWOT Analysis -> Goal: Organize/Compare -> Viz: Four interactive cards in a grid -> Interaction: Hover to highlight -> Justification: More engaging than a static table, breaks down complex info into digestible chunks. -> Library/Method: HTML/Tailwind CSS.
-        - Report Info: Competitive Landscape -> Goal: Compare -> Viz: Interactive competitor profile viewer -> Interaction: Click buttons to switch between competitor data and see Johnny's Garage's unique value proposition. -> Justification: Actively engages the user in comparison, making the unique selling proposition much clearer than a list. -> Library/Method: HTML/Tailwind CSS, Vanilla JS.
-        - Report Info: Content Pillars -> Goal: Organize/Inform -> Viz: Tabbed interface with embedded visual mockups -> Interaction: Click tabs to reveal details and a concrete "Concept Mockup" for each content pillar. -> Justification: The mockups transform abstract strategies into tangible examples (Reel, Thumbnail, Story), making the plan immediately understandable and actionable. -> Library/Method: HTML/Tailwind CSS, Vanilla JS.
-        - Report Info: Phased KPIs -> Goal: Change/Compare -> Viz: Bar chart combined with a 3-stage selector -> Interaction: Clicking a phase button updates the chart data to show the shifting focus of KPIs over time. -> Justification: Visualizes the strategic evolution of metrics, making the long-term plan much more understandable than text lists. -> Library/Method: Chart.js (Canvas), Vanilla JS.
+        - Report Info: SWOT Analysis -> Goal: Organize/Compare -> Viz: Four color-coded cards in a grid -> Interaction: Hover to highlight -> Justification: Breaks down complex info into digestible chunks. -> Library/Method: HTML/Tailwind.
+        - Report Info: Competitor Landscape -> Goal: Compare -> Viz: Interactive competitor profile viewer -> Interaction: Click buttons to switch competitor data. -> Justification: Actively engages user in comparison, making unique value proposition clearer. -> Library/Method: HTML/Tailwind, JS.
+        - Report Info: Content Pillars -> Goal: Organize/Inform -> Viz: Tabbed interface with visual mockups -> Interaction: Click tabs to reveal details and a concrete mockup for each pillar. -> Justification: Mockups make abstract strategies tangible. -> Library/Method: HTML/Tailwind, JS.
+        - Report Info: Phased KPIs -> Goal: Change/Compare -> Viz: Bar chart + 3-stage selector -> Interaction: Clicking a phase button updates chart data to show shifting KPI focus. -> Justification: Visualizes strategic evolution of metrics. -> Library/Method: Chart.js, JS.
+        - Report Info: Partnership Plans -> Goal: Inform/Compare -> Viz: Side-by-side comparison cards and a clear table for contract types. -> Justification: Clearly presents business options and justifies the value of long-term partnership. -> Library/Method: HTML/Tailwind.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: #000000; 
+        }
+        html {
+            scroll-behavior: smooth;
         }
         .nav-link {
             transition: color 0.3s, border-bottom-color 0.3s;
@@ -33,18 +36,18 @@
         }
         .tab-link.active {
             background-color: #60a5fa;
-            color: #000000;
+            color: #111827;
         }
         .tab-link:not(.active):hover {
-            background-color: #1f2937;
+            background-color: #374151;
         }
         .phase-button.active {
             background-color: #60a5fa;
-            color: #000000;
+            color: #111827;
             transform: scale(1.05);
         }
         .phase-button:not(.active):hover {
-            background-color: #374151;
+            background-color: #4b5563;
         }
         .card-hover:hover {
             transform: translateY(-5px);
@@ -67,6 +70,7 @@
                         <a href="#market-analysis" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">市場分析</a>
                         <a href="#content-engine" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">內容引擎</a>
                         <a href="#growth-blueprint" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">成長藍圖</a>
+                        <a href="#partnership" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">合作方案</a>
                     </div>
                 </div>
                 <div class="-mr-2 flex md:hidden">
@@ -85,6 +89,7 @@
                 <a href="#market-analysis" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-300">市場分析</a>
                 <a href="#content-engine" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-300">內容引擎</a>
                 <a href="#growth-blueprint" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-300">成長藍圖</a>
+                <a href="#partnership" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-300">合作方案</a>
             </div>
         </div>
     </header>
@@ -94,21 +99,21 @@
         <section id="overview" class="mb-16 scroll-mt-24">
             <div class="text-center mb-12">
                 <h1 class="text-4xl md:text-5xl font-bold text-blue-400">從蘆洲車行到性能殿堂</h1>
-                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">我們的核心目標是將強尼車坊隱藏的技術實力，轉化為北台灣最具影響力的性能權威品牌。</p>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">本計畫旨在將強尼車坊隱藏的技術實力，轉化為北台灣最具影響力的性能權威品牌，並透過數位渠道實現商業增長。</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8 text-center">
-                <div class="bg-gray-950 p-6 rounded-lg shadow-lg border border-gray-800 card-hover transition-all duration-300">
+                <div class="bg-gray-900 p-6 rounded-lg shadow-lg border border-gray-800 card-hover transition-all duration-300">
                     <div class="text-4xl mb-4">📍</div>
                     <h3 class="text-xl font-bold mb-2 text-white">當前挑戰</h3>
                     <p class="text-gray-400">工業區位置、數位足跡空白。強大的技術實力，尚未被市場看見，潛力亟待釋放。</p>
                 </div>
-                <div class="bg-gray-950 p-6 rounded-lg shadow-lg border border-gray-800 card-hover transition-all duration-300">
+                <div class="bg-gray-900 p-6 rounded-lg shadow-lg border border-gray-800 card-hover transition-all duration-300">
                     <div class="text-4xl mb-4">🎯</div>
-                    <h3 class="text-xl font-bold mb-2 text-white">品牌人格</h3>
-                    <p class="text-gray-400">我們將成為「誠信專家」：知識淵博而非傲慢，流程透明而非推銷，就像車友圈中最值得信賴的技術夥伴。</p>
+                    <h3 class="text-xl font-bold mb-2 text-white">品牌人格：誠信專家</h3>
+                    <p class="text-gray-400">知識淵博而非傲慢，流程透明而非推銷，就像車友圈中最值得信賴的技術夥伴。</p>
                 </div>
-                <div class="bg-gray-950 p-6 rounded-lg shadow-lg border border-gray-800 card-hover transition-all duration-300">
+                <div class="bg-gray-900 p-6 rounded-lg shadow-lg border border-gray-800 card-hover transition-all duration-300">
                     <div class="text-4xl mb-4">🛠️</div>
                     <h3 class="text-xl font-bold mb-2 text-white">獨特定位</h3>
                     <p class="text-gray-400">市場上唯一的「全方位性能生命週期夥伴」，整合選車、改裝、維修到賽道實證的完整故事線。</p>
@@ -194,12 +199,12 @@
                         <button class="tab-link whitespace-nowrap py-3 px-4 text-gray-300 font-medium text-sm rounded-t-lg transition" data-tab="paddock">賽道最前線</button>
                     </nav>
                 </div>
-                <div id="tab-content" class="min-h-[220px] p-2 sm:p-4 bg-black rounded-b-lg">
+                <div id="tab-content" class="min-h-[450px] md:min-h-[350px] p-2 sm:p-4 bg-black rounded-b-lg">
                 </div>
             </div>
         </section>
 
-        <section id="growth-blueprint" class="scroll-mt-24">
+        <section id="growth-blueprint" class="mb-16 scroll-mt-24">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-blue-400">成長藍圖：三階段作戰計畫</h2>
                 <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">成功並非一蹴可幾。我們將分三階段推進，從建立基礎、擴大影響力到實現營收，每一步都有明確目標。點擊下方按鈕，探索各階段的策略重點與KPI焦點變化。</p>
@@ -233,6 +238,91 @@
                 </div>
             </div>
         </section>
+
+        <section id="partnership" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">合作方案與顧問價值</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">為確保「Apex計畫」能穩定執行並發揮最大效益，我們提供清晰的合作方案，並闡述長期合作的獨特價值。</p>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold text-center mb-6 text-white">長期顧問合作方案建議</h3>
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg border-t-4 border-blue-500">
+                        <h4 class="text-xl font-bold mb-3 text-white">方案A：短影音衝刺方案</h4>
+                        <p class="text-gray-400 mb-4">適合希望快速在社群平台（如 Instagram Reels, TikTok）建立聲量、擴大觸及的客戶。</p>
+                        <ul class="space-y-2 text-gray-300">
+                            <li class="flex items-start"><span class="text-blue-500 mr-2 mt-1">✓</span><div><strong>產出:</strong> 每月 10 支短影音（含腳本規劃撰寫）。</div></li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-2 mt-1">✓</span><div><strong>服務:</strong> 每月 3 小時顧問諮詢會議、每月成效分析報告書。</div></li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg border-t-4 border-blue-500">
+                        <h4 class="text-xl font-bold mb-3 text-white">方案B：深度內容方案</h4>
+                        <p class="text-gray-400 mb-4">適合希望在 YouTube 等平台建立深度專業形象、鞏固權威地位的客戶。</p>
+                        <ul class="space-y-2 text-gray-300">
+                             <li class="flex items-start"><span class="text-blue-500 mr-2 mt-1">✓</span><div><strong>產出:</strong> 每月 2 支 15 分鐘長影音（含腳本規劃撰寫）。</div></li>
+                             <li class="flex items-start"><span class="text-blue-500 mr-2 mt-1">✓</span><div><strong>服務:</strong> 每月 3 小時顧問諮詢會議、每月成效分析報告書。</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4 text-white">為何需要行銷顧問？</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 font-bold mr-3 mt-1">→</span>
+                            <div><strong class="text-gray-200">專業分工:</strong> 讓您的團隊專注於核心技術，行銷交給專家。</div>
+                        </li>
+                        <li class="flex items-start">
+                             <span class="text-blue-500 font-bold mr-3 mt-1">→</span>
+                            <div><strong class="text-gray-200">策略導航:</strong> 根據數據制定策略，避免資源浪費，確保預算花在刀口上。</div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 font-bold mr-3 mt-1">→</span>
+                            <div><strong class="text-gray-200">持續優化:</strong> 持續追蹤成效，調整策略，讓品牌影響力產生複利效果。</div>
+                        </li>
+                        <li class="flex items-start">
+                           <span class="text-blue-500 font-bold mr-3 mt-1">→</span>
+                           <div><strong class="text-gray-200">客觀視角:</strong> 以專業第三方視角，提供客觀分析，突破內部盲點。</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+                     <h3 class="text-2xl font-semibold mb-4 text-white">合作模式比較</h3>
+                     <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr>
+                                    <th class="p-2 bg-gray-800 rounded-tl-lg text-gray-200">比較項目</th>
+                                    <th class="p-2 bg-gray-800 text-gray-200">單次專案合約</th>
+                                    <th class="p-2 bg-gray-800 rounded-tr-lg text-gray-200">長期顧問合約</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-400">
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-2 font-bold text-gray-200">優點</td>
+                                    <td class="p-2">✅ 成本固定<br>✅ 目標明確</td>
+                                    <td class="p-2">✅ 策略連貫<br>✅ 持續優化<br>✅ 效益具複利效果</td>
+                                </tr>
+                                <tr class="border-b border-gray-800">
+                                    <td class="p-2 font-bold text-gray-200">缺點</td>
+                                    <td class="p-2">❌ 效果短暫<br>❌ 缺乏長期策略</td>
+                                    <td class="p-2">❌ 初期投入較高<br>❌ 需長期信任</td>
+                                </tr>
+                                <tr>
+                                     <td class="p-2 font-bold text-gray-200">比喻</td>
+                                     <td class="p-2">🎆 施放一次性的煙火</td>
+                                     <td class="p-2">🌳 種植一棵持續長大的樹</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                     </div>
+                </div>
+            </div>
+        </section>
+
     </main>
     
     <footer class="bg-gray-950 mt-16 border-t border-gray-800">
@@ -253,26 +343,25 @@
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('main section');
 
-            function updateActiveLink() {
-                let index = sections.length;
-                while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
-                
-                navLinks.forEach((link) => link.classList.remove('active'));
-                
-                const activeLink = document.querySelector(`.nav-link[href="#${sections[index].id}"]`);
-                if(activeLink){
-                   activeLink.classList.add('active');
-                }
-            }
-            window.addEventListener('scroll', updateActiveLink);
-            updateActiveLink();
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
 
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            document.querySelectorAll('.nav-link, .block.nav-link').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
                     if (mobileMenu.classList.contains('hidden') === false) {
                         mobileMenu.classList.add('hidden');
                     }
@@ -368,7 +457,7 @@
                         <div class="bg-gray-900 p-4 rounded-lg border border-gray-800 max-w-lg mx-auto">
                            <div class="aspect-video bg-black rounded-lg flex items-center justify-center relative overflow-hidden border border-gray-800">
                                 <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://placehold.co/1280x720/000000/FFFFFF?text=GTI'); opacity: 0.5;"></div>
-                                <div class="relative z-10 text-center">
+                                <div class="relative z-10 text-center p-4">
                                     <p class="text-sm bg-red-600 text-white font-bold px-2 py-1 inline-block rounded">APEX計畫 EP.2</p>
                                     <h6 class="text-3xl font-black text-white mt-2 drop-shadow-lg">馬力機殘酷實測！</h6>
                                     <p class="text-xl font-bold text-yellow-300 drop-shadow-lg">一階ECU能提升多少匹？</p>
@@ -539,7 +628,10 @@
                                     display: false
                                 },
                                 ticks: {
-                                    color: '#d1d5db'
+                                    color: '#d1d5db',
+                                    font: {
+                                        size: 14
+                                    }
                                 }
                             }
                         },
