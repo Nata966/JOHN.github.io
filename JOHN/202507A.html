@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>頻道主軸初期戰略規劃建議書</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: True Black & Cyber Glow -->
+    <!-- Application Structure Plan: The SPA is designed as an interactive dashboard with eight main sections. 1. **企劃總覽**: High-level introduction. 2. **戰略基礎**: Competitor analysis. 3. **市場數據**: Interactive data tabs. 4. **內容規劃**: 10-episode plan. 5. **執行藍圖**: Interactive 3-month plan. 6. **長期願景**: Future seasons. 7. **預算與風險**: A new section for budget proposal and risk mitigation. 8. **下一步**: A new section with a clear call to action for collaboration. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Market Traffic Data -> Goal: Compare/Inform -> Viz: A fully interactive tabbed component. -> Interaction: Click buttons to switch between different data views. -> Justification: Transforms a dense data section into a guided, exploratory experience. -> Library/Method: Chart.js (Canvas), HTML/Tailwind, JS.
+        - Report Info: Budget & Risk -> Goal: Inform/Build Trust -> Viz: A two-column grid layout. -> Justification: Clearly separates financial aspects from strategic foresight, making the proposal transparent and professional. -> Library/Method: HTML/Tailwind.
+        - Report Info: Next Steps -> Goal: Call to Action -> Viz: A three-card step-by-step guide. -> Justification: Provides a clear, low-friction path for the client to proceed with the partnership. -> Library/Method: HTML/Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #60a5fa; 
+            border-bottom-color: #60a5fa;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(96, 165, 250, 0.1), 0 4px 6px -2px rgba(96, 165, 250, 0.05);
+        }
+        .roadmap-tab, .data-tab {
+             border-bottom: 3px solid transparent;
+             transition: all 0.3s ease;
+        }
+        .roadmap-tab.active, .data-tab.active {
+            color: #60a5fa;
+            border-bottom-color: #60a5fa;
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-300">
+
+    <header class="bg-black/80 backdrop-blur-lg shadow-lg shadow-blue-500/10 sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl text-blue-400">Apex計畫 S1</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#overview" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">企劃總覽</a>
+                        <a href="#strategy" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">戰略基礎</a>
+                        <a href="#market-data" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">市場數據</a>
+                        <a href="#content-plan" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">內容規劃</a>
+                        <a href="#roadmap" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">執行藍圖</a>
+                        <a href="#vision" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">長期願景</a>
+                        <a href="#planning" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-300">預算與風險</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#overview" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-300">企劃總覽</a>
+                <a href="#strategy" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-300">戰略基礎</a>
+                <a href="#market-data" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-300">市場數據</a>
+                <a href="#content-plan" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-300">內容規劃</a>
+                <a href="#roadmap" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-300">執行藍圖</a>
+                <a href="#vision" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-300">長期願景</a>
+                <a href="#planning" class="block nav-link px-3 py-2 rounded-md text-base font-medium text-gray-300">預算與風險</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+        <section id="overview" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold text-blue-400">頻道主軸初期戰略規劃建議書</h1>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">本企劃旨在為「強尼車坊」規劃品牌數位化的第一步。此系列將聚焦於**「駕駛安全」**與**「聰明養車」**兩大核心主軸，透過提供極度實用的知識型內容，快速建立「誠信專家」的品牌形象。</p>
+            </div>
+        </section>
+
+        <section id="strategy" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">戰略基礎：為何從「安全」與「養車」開始？</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">我們的核心邏輯是**「先建立信任，再談生意」**。在競爭激烈的市場中，這是一個能避開紅海、直擊藍海的精準決策。</p>
+            </div>
+            <div class="bg-gray-950 p-6 rounded-lg shadow-lg border border-gray-800">
+                <h3 class="font-bold text-xl mb-4 text-center text-white">在競爭夾縫中找到藍海</h3>
+                <div class="grid md:grid-cols-2 gap-6 text-sm text-gray-400 border-b border-gray-700 pb-6 mb-6">
+                    <div>
+                        <p class="mb-2">目前的市場領導者，如**小施汽車**，其核心是建立在「誠信」基礎上的**中古車交易**，內容圍繞交易透明化展開。而**狂人日誌**等媒體，則專注於營造「嚮往感」，提供電影級的**汽車文化體驗**。</p>
+                    </div>
+                    <div>
+                        <p>他們都非常成功，但也共同留下了一個巨大的市場空白：**系統性地、深入淺出地講解日常安全與養護知識的「實戰專家」**。車主們不只需要信任的交易對象或嚮往的目標，他們更迫切需要一個能解決日常焦慮、值得信賴的技術顧問。</p>
+                    </div>
+                </div>
+                <h3 class="font-bold text-xl mb-4 text-center text-white">我們的四大戰略支柱</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-gray-900 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-2 text-blue-400">🎯 直擊痛點</h4>
+                        <p class="text-gray-400 text-sm">內容直面所有車主共同的焦慮：「行車安全」與「維修費用」，確保了最廣泛的適用性與吸引力。</p>
+                    </div>
+                    <div class="bg-gray-900 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-2 text-blue-400">🤝 建立信任</h4>
+                        <p class="text-gray-400 text-sm">主動教學如何避免花冤枉錢，將品牌角色從「商家」轉變為「為車主著想的專業顧問」。</p>
+                    </div>
+                    <div class="bg-gray-900 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-2 text-blue-400">👑 塑造權威</h4>
+                        <p class="text-gray-400 text-sm">從基礎知識切入，更能凸顯對汽車「本質」的深刻理解，建立「不僅懂改，更懂車」的專家形象。</p>
+                    </div>
+                    <div class="bg-gray-900 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-2 text-blue-400">🚀 創造差異</h4>
+                        <p class="text-gray-400 text-sm">避開充滿聲浪、加速影片的紅海，選擇需求極大但競爭較少的切入點，快速建立品牌獨特性。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="market-data" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">流量預估分析報告</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">數據顯示，我們的策略是去滿足一個已經存在、但尚未被完美服務的龐大需求。這不僅是流量，更是充滿高價值潛在客戶的精準魚塘。</p>
+            </div>
+            <div class="bg-gray-950 p-6 rounded-lg shadow-lg border border-gray-800">
+                <div class="flex justify-center mb-6 border-b border-gray-700">
+                     <nav class="-mb-px flex flex-wrap justify-center gap-x-4 sm:gap-x-8" aria-label="Tabs">
+                        <button class="data-tab whitespace-nowrap pb-4 px-1 text-base sm:text-lg font-medium text-gray-500" data-target="demand">市場需求</button>
+                        <button class="data-tab whitespace-nowrap pb-4 px-1 text-base sm:text-lg font-medium text-gray-500" data-target="intent">搜尋意圖</button>
+                        <button class="data-tab whitespace-nowrap pb-4 px-1 text-base sm:text-lg font-medium text-gray-500" data-target="impact">預期影響力</button>
+                        <button class="data-tab whitespace-nowrap pb-4 px-1 text-base sm:text-lg font-medium text-gray-500" data-target="platform">平台差異化</button>
+                    </nav>
+                </div>
+                <div id="data-content" class="min-h-[450px]">
+                    <div id="demand" class="data-panel">
+                        <h3 class="font-bold text-xl mb-2 text-white text-center">市場需求量化圖</h3>
+                        <p class="text-sm text-gray-500 mb-4 text-center">各類別關鍵字在台灣地區的每月平均搜尋量估算。</p>
+                        <div class="chart-container relative h-[50vh] max-h-96 w-full max-w-2xl mx-auto">
+                            <canvas id="marketDataChart"></canvas>
+                        </div>
+                    </div>
+                    <div id="intent" class="data-panel hidden">
+                        <h3 class="font-bold text-xl mb-4 text-white text-center">搜尋意圖分析</h3>
+                        <p class="text-sm text-gray-500 mb-4 text-center max-w-2xl mx-auto">超過 **47,000** 次的月搜尋量背後，代表著兩種高價值的潛在客戶：</p>
+                        <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                            <div class="bg-red-900/20 border-l-4 border-red-500 p-4 rounded-r-lg">
+                                <h4 class="font-bold text-red-400">高意圖搜尋 (High-Intent Searches)</h4>
+                                <p class="text-sm text-red-300 mt-1">關鍵字如「引擎燈亮」、「車子 異音」。代表車主正處於**焦慮狀態**，迫切尋求立即的解決方案。在此刻提供專業解答，能瞬間建立品牌信任。</p>
+                            </div>
+                            <div class="bg-green-900/20 border-l-4 border-green-500 p-4 rounded-r-lg">
+                                <h4 class="font-bold text-green-400">預防性搜尋 (Preventative Searches)</h4>
+                                <p class="text-sm text-green-300 mt-1">關鍵字如「輪胎 壽命」、「煞車油 更換」。代表車主是**負責任、注重保養品質**的族群，是理想的長期客戶。</p>
+                            </div>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-gray-700 max-w-4xl mx-auto">
+                            <h4 class="font-bold text-xl text-center text-yellow-400">關鍵字廣告的戰略價值</h4>
+                            <p class="text-sm text-center text-gray-400 mt-2">內容行銷是「吸引」客戶，而關鍵字廣告則是「**主動出擊**」。</p>
+                            <p class="text-sm text-gray-400 mt-4">當車主在Google搜尋「蘆洲 引擎異音」時，代表他已遇到問題且**需求極為明確**。透過購買關鍵字，我們可以確保強尼車坊的資訊**在第一時間、第一位置**出現在他眼前，直接將最高意圖的潛在客戶引導至我們的服務。這與在社群平台等待被動發現的邏輯不同，是**捕捉現有需求、加速商業轉化**的最直接手段。</p>
+                        </div>
+                    </div>
+                    <div id="impact" class="data-panel hidden">
+                        <h3 class="font-bold text-xl mb-4 text-white text-center">第一季預期影響力指標</h3>
+                        <p class="text-sm text-gray-500 mb-4 text-center max-w-2xl mx-auto">以下為第一季(三個月/每月10支影片)的**自然增長潛力**預估。請抱持開放的心理預期看待這些數字，它們是我們努力的基準，而**適時的廣告投放將是放大這些成果的關鍵催化劑**。</p>
+                        <div class="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                            <div class="bg-gray-900 p-6 rounded-lg border border-gray-800 text-center">
+                                <p class="text-sm text-blue-400 font-semibold">總觀看數</p>
+                                <p class="text-4xl font-bold text-white mt-1">500,000+</p>
+                            </div>
+                            <div class="bg-gray-900 p-6 rounded-lg border border-gray-800 text-center">
+                                <p class="text-sm text-blue-400 font-semibold">粉絲增長</p>
+                                <p class="text-4xl font-bold text-white mt-1">3,000 - 5,000+</p>
+                            </div>
+                             <div class="bg-gray-900 p-6 rounded-lg border border-gray-800 text-center">
+                                <p class="text-sm text-blue-400 font-semibold">平均互動率</p>
+                                <p class="text-4xl font-bold text-white mt-1">3% - 5%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="platform" class="data-panel hidden">
+                        <h3 class="font-bold text-xl mb-4 text-center text-white">平台差異化戰略與數據預估 (第一季三個月總計)</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm max-w-5xl mx-auto">
+                                <thead class="bg-gray-800 text-gray-300">
+                                    <tr>
+                                        <th class="p-3 rounded-tl-lg">平台</th>
+                                        <th class="p-3">總觀看數 (估)</th>
+                                        <th class="p-3">粉絲增長 (估)</th>
+                                        <th class="p-3">核心指標</th>
+                                        <th class="p-3 rounded-tr-lg">戰略價值</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-400">
+                                    <tr class="border-b border-gray-800">
+                                        <td class="p-3 font-bold text-pink-400">Instagram</td>
+                                        <td class="p-3 font-semibold text-white">350,000+</td>
+                                        <td class="p-3 font-semibold text-white">2,500 - 4,000+</td>
+                                        <td class="p-3">觸及率、分享數</td>
+                                        <td class="p-3">透過演算法強力推薦，快速建立**品牌知名度**，是觸及新客群的主力。</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-bold text-red-500">YouTube</td>
+                                        <td class="p-3 font-semibold text-white">150,000+</td>
+                                        <td class="p-3 font-semibold text-white">500 - 1,000+</td>
+                                        <td class="p-3">觀看完成率、訂閱轉換率</td>
+                                        <td class="p-3">吸引高含金量觀眾，建立**深度信任與專業權威**，是培養未來高單價客戶的關鍵資產。</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="content-plan" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">第一季10集內容發布規劃</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">這是一個清晰、可執行的內容藍圖，每一集都經過精心設計，以最大化其市場觸及效果與品牌建立效益。</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Episodes will be injected here by JS -->
+            </div>
+        </section>
+
+        <section id="roadmap" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">第一季 (三個月) 執行藍圖與成果預期</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">品牌建立是循序漸進的過程。我們將第一季分為三個階段，每個階段都有清晰的執行重點與務實的成果指標，以確保專案透明、可控且高效。</p>
+            </div>
+            <div class="bg-gray-950 p-6 rounded-lg shadow-lg border border-gray-800">
+                <div class="flex justify-center mb-6 border-b border-gray-700">
+                    <nav class="-mb-px flex space-x-2 sm:space-x-8" aria-label="Tabs">
+                        <button class="roadmap-tab whitespace-nowrap pb-4 px-1 text-base sm:text-lg font-medium text-gray-500" data-month="1">第一個月</button>
+                        <button class="roadmap-tab whitespace-nowrap pb-4 px-1 text-base sm:text-lg font-medium text-gray-500" data-month="2">第二個月</button>
+                        <button class="roadmap-tab whitespace-nowrap pb-4 px-1 text-base sm:text-lg font-medium text-gray-500" data-month="3">第三個月</button>
+                    </nav>
+                </div>
+                <div id="roadmap-content" class="min-h-[320px]">
+                    <!-- Content will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="vision" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">長期願景與後續規劃</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">第一季的成功是我們的起點。在建立起「誠信專家」的品牌基礎後，我們將逐步擴展內容的深度與廣度，引導品牌進入下一階段的成長。</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-950 p-6 rounded-lg shadow-lg border border-gray-800">
+                    <h3 class="font-bold text-xl mb-4 text-blue-400">第二季 (第4-6個月)：權威深化與性能初步探索</h3>
+                    <p class="text-sm text-gray-400 mb-4">在第一季建立的信任基礎上，我們將開始引入更能凸顯技術上限的內容，吸引更核心的性能玩家。</p>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
+                        <li>**深化養車主題**：推出如「變速箱保養」、「引擎積碳清洗」等更進階的維護議題。</li>
+                        <li>**引入改裝CP值分析**：發布「新手改裝第一步」、「煞車升級」等數據導向的改裝建議內容。</li>
+                        <li>**賽道技術初步應用**：開始將「賽道最前線」的知識融入日常駕駛技巧中，例如「賽道級的胎壓設定法」。</li>
+                        <li>**目標**：鞏固專家地位，並開始吸引對「輕度至中度改裝」感興趣的潛在客戶。</li>
+                    </ul>
+                </div>
+                 <div class="bg-gray-950 p-6 rounded-lg shadow-lg border border-gray-800">
+                    <h3 class="font-bold text-xl mb-4 text-blue-400">第三季 (第7-9個月)：品牌擴張與社群變現</h3>
+                    <p class="text-sm text-gray-400 mb-4">當品牌權威與社群凝聚力達到一定水平後，我們將啟動更能直接驅動高價值業務的內容系列。</p>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2 text-sm">
+                        <li>**啟動「改裝進化論」系列**：完整記錄一台專案車從無到有的打造過程，創造追劇感與高度期待。</li>
+                        <li>**全面展開「賽道最前線」**：發布賽事Vlog、車手訪談等獨家內容，最大化品牌的差異化優勢。</li>
+                        <li>**建立VIP社群**：為忠實粉絲與老客戶建立專屬的FB社團，提供獨家資訊與優先預約權。</li>
+                        <li>**目標**：成為性能改裝領域的意見領袖，透過高黏著度的社群，穩定地將粉絲轉化為高單價服務的客戶。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="planning" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">預算與風險規劃</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">一份完整的企劃不僅包含藍圖，更需正視執行層面的資源投入與潛在挑戰，以確保專案的順利推進。</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-950 p-6 rounded-lg shadow-lg border border-gray-800">
+                    <h3 class="font-bold text-xl mb-4 text-blue-400">建議廣告預算：加速成果的催化劑</h3>
+                    <p class="text-sm text-gray-400 mb-4">內容行銷的自然增長需要時間發酵。初期的廣告投放並非為了直接銷售，而是作為「放大器」，讓我們優質的內容能更快地觸及精準受眾，加速品牌建立的進程。</p>
+                    <div class="bg-gray-900 p-4 rounded-lg">
+                        <p class="text-center text-white font-bold text-lg">建議初期每月廣告預算</p>
+                        <p class="text-center text-blue-400 font-bold text-4xl mt-2">NT$ 5,000 - 10,000</p>
+                        <p class="text-xs text-center text-gray-500 mt-2">用於加強推廣表現最佳的影片，以及針對高互動粉絲進行再行銷。</p>
+                    </div>
+                </div>
+                <div class="bg-gray-950 p-6 rounded-lg shadow-lg border border-gray-800">
+                    <h3 class="font-bold text-xl mb-4 text-blue-400">風險評估與應對策略</h3>
+                    <p class="text-sm text-gray-400 mb-4">預先設想挑戰，是專案成功的保證。</p>
+                    <ul class="space-y-4 text-sm">
+                        <li class="border-b border-gray-800 pb-2">
+                            <p class="font-semibold text-gray-200">風險：關鍵人物（技師）不善言辭或時間有限。</p>
+                            <p class="text-gray-400 mt-1"><strong>應對策略：</strong>可事先進行口條訓練，或改由旁白配音解說，確保內容穩定產出。</p>
+                        </li>
+                        <li>
+                            <p class="font-semibold text-gray-200">風險：內容效益不如預期，流量增長緩慢。</p>
+                            <p class="text-gray-400 mt-1"><strong>應對策略：</strong>透過數據追蹤，快速分析問題點，並在下一批內容中迅速調整。同時，利用廣告投放給更精準的受眾來驗證內容價值。</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-gray-950 mt-16 border-t border-gray-800">
+        <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            <p>&copy; 2025 Apex計畫 | 為強尼車坊量身打造. Designed by 黑潮國際行銷事務所.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            document.querySelectorAll('.nav-link, .block.nav-link').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (mobileMenu.classList.contains('hidden') === false) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Market Data Chart
+            const ctx = document.getElementById('marketDataChart').getContext('2d');
+            const marketDataChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['日常保養', '駕駛安全', '車輛診斷'],
+                    datasets: [{
+                        label: '台灣地區每月平均搜尋量',
+                        data: [20000, 15000, 12000],
+                        backgroundColor: [
+                            'rgba(96, 165, 250, 0.7)',
+                            'rgba(52, 211, 153, 0.7)',
+                            'rgba(248, 113, 113, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(96, 165, 250, 1)',
+                            'rgba(52, 211, 153, 1)',
+                            'rgba(248, 113, 113, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#9ca3af',
+                                callback: function(value) {
+                                    return value / 1000 + 'k';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#d1d5db'
+                            },
+                             grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` 約 ${context.raw.toLocaleString()} 次/月`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Interactive Data Tabs
+            const dataTabs = document.querySelectorAll('.data-tab');
+            const dataPanels = document.querySelectorAll('.data-panel');
+            dataTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    dataTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const target = tab.getAttribute('data-target');
+                    dataPanels.forEach(panel => {
+                        if (panel.id === target) {
+                            panel.classList.remove('hidden');
+                        } else {
+                            panel.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+            document.querySelector('.data-tab[data-target="demand"]').classList.add('active');
+
+
+            // Content Plan Episodes
+            const episodes = [
+                { theme: '駕駛安全', title: '雨天開車會怕？學賽車手「溫柔煞車法」，讓你的家人坐得更安心。', analysis: '觸及潛力：★★★★★<br>高共鳴、高分享性。直接解決所有駕駛者的共同恐懼，極易引發家庭客群的關注與分享。' },
+                { theme: '聰明養車', title: '【引擎燈亮了？】別再亂換零件！看我們如何像偵探一樣，揪出真正的問題根源。', analysis: '觸及潛力：★★★☆☆<br>高價值、高意圖。雖非大眾娛樂主題，但能精準吸引正處於焦慮狀態的車主，建立權威感的效果極佳。' },
+                { theme: '駕駛安全', title: '高速公路的隱形殺手！一分鐘學會賽車技師的「輪胎安全檢查法」。', analysis: '觸及潛力：★★★★★<br>極高實用性。攸關性命的安全知識，具備「必看」、「必收藏」的病毒式傳播潛力。' },
+                { theme: '聰明養車', title: '車子發出怪聲音？技師教你「聽音辨位」，秒懂是哪裡出問題。', analysis: '觸及潛力：★★★★☆<br>高相關性。異音是極普遍的困擾，能有效降低車主對維修的恐懼，建立信任。' },
+                { theme: '駕駛安全', title: '你坐對了嗎？賽車手都在用的「戰鬥坐姿」調整法，提升操控、拯救你的腰。', analysis: '觸及潛力：★★★★☆<br>高好奇心、高體驗感。結合了「帥氣」與「健康」兩大元素，能讓觀眾立即體驗到駕駛感受的提升。' },
+                { theme: '聰明養車', title: '煞車油多久沒換了？被忽略的「保命油」，顏色變這樣就快換掉！', analysis: '觸及潛力：★★★☆☆<br>教育導向。主要吸引注重預防性保養的優質客戶，強化品牌的專業與細心形象。' },
+                { theme: '駕駛安全', title: '你的大燈真的「亮」對了嗎？一招教你自我檢查，不再當三寶或瞎子。', analysis: '觸及潛力：★★★★☆<br>高社群性。具備公共議題的討論熱度，容易引發車友間的轉發與討論，塑造品牌社會責任感。' },
+                { theme: '聰明養車', title: '副水箱的水，加自來水就好？一個錯誤動作，小心引擎「沖掉」！', analysis: '觸及潛力：★★★★☆<br>迷思破解。直接挑戰一個流傳已久的錯誤觀念，具備高衝擊力與記憶點。' },
+                { theme: '聰明養車', title: '電瓶的「健康密碼」怎麼看？學會這招，避免半路顧路叫拖車。', analysis: '觸及潛力：★★★★★<br>解決焦慮。直接回應「被困在路上」的普遍恐懼，實用價值極高，收藏率會很高。' },
+                { theme: '駕駛安全', title: '車子失控前一刻的自救法！秒懂「轉向不足」，讓你雨天過彎更安心。', analysis: '觸及潛力：★★★☆☆<br>高階權威。雖是較進階的駕駛技巧，但能強力鞏固品牌的頂級專業形象，吸引硬核粉絲。' }
+            ];
+
+            const contentPlanGrid = document.querySelector('#content-plan .grid');
+            episodes.forEach((ep, index) => {
+                const themeColor = ep.theme === '駕駛安全' ? 'text-green-400 bg-green-900/50' : 'text-red-400 bg-red-900/50';
+                const card = `
+                    <div class="bg-gray-900 p-4 rounded-lg shadow-lg card-hover transition-all duration-300 flex flex-col border border-gray-800">
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-bold ${themeColor} px-2 py-1 rounded">${ep.theme}</span>
+                                <span class="text-2xl font-bold text-gray-700">#${index + 1}</span>
+                            </div>
+                            <p class="font-semibold text-gray-200">${ep.title}</p>
+                        </div>
+                        <div class="mt-3 pt-3 border-t border-gray-700 text-xs text-gray-500">
+                            <p class="font-bold text-red-400 mb-1">市場觸及效果分析：</p>
+                            <p>${ep.analysis}</p>
+                        </div>
+                    </div>
+                `;
+                contentPlanGrid.innerHTML += card;
+            });
+
+            // Interactive Roadmap
+            const roadmapData = {
+                '1': {
+                    title: '第一個月：基礎建設與高速啟動',
+                    borderColor: 'border-blue-400',
+                    textColor: 'text-blue-400',
+                    points: {
+                        '執行重點': [
+                            '完成社群平台建立與視覺優化。',
+                            '**高強度發布 10 支短影音**，建立頻道基礎內容庫。',
+                            '設定基礎廣告活動，最大化初期曝光。',
+                            '收集首批觀眾回饋，分析數據。'
+                        ],
+                        '關鍵指標 (KPIs)': [
+                            '粉絲數增長 (目標: > 1,000)。',
+                            '影片總觀看次數。',
+                            '初步互動率 (留言/分享/儲存)。'
+                        ],
+                        '預期成果': '在市場上建立強烈的初始印象，完成從0到1的突破，並擁有一個充實的內容庫以供新觀眾探索。'
+                    }
+                },
+                '2': {
+                    title: '第二個月：數據優化與社群深化',
+                    borderColor: 'border-blue-500',
+                    textColor: 'text-blue-500',
+                    points: {
+                        '執行重點': [
+                            '**根據前期數據，規劃並製作第二批 10 支內容**。',
+                            '增加限時動態的互動（問答、投票）。',
+                            '積極回覆所有留言，建立社群歸屬感。',
+                            '優化廣告投放策略，鎖定高互動受眾。'
+                        ],
+                        '關鍵指標 (KPIs)': [
+                            '粉絲數穩定增長 (目標: > 2,500)。',
+                            '**影片觀看完成率** (> 30%)。',
+                            '**開始追蹤私訊諮詢量**。'
+                        ],
+                        '預期成果': '觀眾從「過客」轉變為「粉絲」，社群互動顯著提升，並開始出現由內容引導的初步商業諮詢。'
+                    }
+                },
+                '3': {
+                    title: '第三個月：權威鞏固與商業轉化',
+                    borderColor: 'border-blue-600',
+                    textColor: 'text-blue-600',
+                    points: {
+                        '執行重點': [
+                            '**發布第二批內容，並規劃第三季主題**。',
+                            '推出更具深度的專業內容，鞏固權威形象。',
+                            '啟動再行銷廣告，觸及已互動過的觀眾。',
+                            '在內容中適度引導觀眾私訊提問，建立潛在客戶名單。'
+                        ],
+                        '關鍵指標 (KPIs)': [
+                            '粉絲數持續增長 (目標: > 4,000)。',
+                            '**私訊諮詢的「品質」與「數量」**。',
+                            '品牌關鍵字搜尋量提升。'
+                        ],
+                        '預期成果': '穩固「誠信專家」的品牌形象，社群成為一個可預期的潛在客戶來源，為後續的商業變現打下堅實基礎。'
+                    }
+                }
+            };
+
+            const roadmapTabs = document.querySelectorAll('.roadmap-tab');
+            const roadmapContentEl = document.getElementById('roadmap-content');
+
+            function updateRoadmapContent(month) {
+                const data = roadmapData[month];
+                
+                let pointsHTML = '';
+                for (const [key, value] of Object.entries(data.points)) {
+                    if (Array.isArray(value)) {
+                        const listItems = value.map(item => `<li class="list-disc list-inside">${item.replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-200">$1</strong>')}</li>`).join('');
+                        pointsHTML += `
+                            <div>
+                                <h4 class="font-semibold text-gray-200">${key}：</h4>
+                                <ul class="text-gray-400 mt-1">${listItems}</ul>
+                            </div>
+                        `;
+                    } else {
+                        pointsHTML += `
+                            <div>
+                                <h4 class="font-semibold text-gray-200">${key}：</h4>
+                                <p class="text-gray-400 mt-1">${value.replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-200">$1</strong>')}</p>
+                            </div>
+                        `;
+                    }
+                }
+
+                roadmapContentEl.innerHTML = `
+                    <div class="bg-gray-900 p-4 rounded-lg border-l-4 ${data.borderColor}">
+                        <h3 class="font-bold text-xl mb-4 ${data.textColor}">${data.title}</h3>
+                        <div class="space-y-4 text-sm">
+                            ${pointsHTML}
+                        </div>
+                    </div>
+                `;
+
+                roadmapTabs.forEach(tab => {
+                    tab.classList.toggle('active', tab.dataset.month === month);
+                    tab.classList.toggle('text-gray-500', tab.dataset.month !== month);
+                    tab.classList.toggle('text-blue-400', tab.dataset.month === month);
+                });
+            }
+
+            roadmapTabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    updateRoadmapContent(e.target.dataset.month);
+                });
+            });
+
+            updateRoadmapContent('1');
+
+        });
+    </script>
+</body>
+</html>
