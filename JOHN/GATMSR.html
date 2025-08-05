@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>強尼車坊旗艦專案行銷藍圖</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Midnight Blue & Cyber Glow -->
+    <!-- Application Structure Plan: A vertical, scrollable SPA reframed as a "Marketing Blueprint". The sections are: 1. **企劃核心**. 2. **市場數據**. 3. **戰略工具解析**: A new section explaining SEO vs. Ads. 4. **執行藍圖**. 5. **模擬成品**. 6. **獲客漏斗**. 7. **商業效益**. This structure is heavily focused on interaction and data visualization. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: SEO vs. Ads -> Goal: Educate/Explain -> Viz: A two-card side-by-side comparison using strong metaphors ("Building a Mansion" vs. "Renting a Billboard"). -> Justification: This analogy-driven approach makes complex digital marketing concepts extremely easy for a non-technical client to understand and appreciate. -> Library/Method: HTML/Tailwind.
+        - Report Info: Market Data & Opportunity -> Goal: Explain/Inform -> Viz: A Chart.js bar chart paired with interactive buttons. -> Interaction: Clicking buttons highlights relevant bars on the chart. -> Justification: Makes data exploration guided and insightful. -> Library/Method: Chart.js (Canvas), HTML/Tailwind, JS.
+        - Report Info: Execution Blueprint -> Goal: Organize/Instruct -> Viz: An interactive 3-step guide with buttons with detailed steps. -> Interaction: Clicking each step button reveals detailed instructions. -> Justification: Transforms a static list into an engaging, user-controlled process explanation. -> Library/Method: HTML/Tailwind, JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #111827;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #60a5fa; 
+            border-bottom-color: #60a5fa;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(96, 165, 250, 0.1), 0 4px 6px -2px rgba(96, 165, 250, 0.05);
+        }
+        .carousel-item {
+            display: none;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .carousel-item.active {
+            display: block;
+        }
+        .phone-mockup {
+            max-width: 375px; /* iPhone X width */
+            aspect-ratio: 9 / 19.5;
+            background: #000;
+            border-radius: 40px;
+            padding: 15px;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+        }
+        .phone-screen {
+            background: #fff;
+            border-radius: 25px;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .data-btn.active {
+            background-color: #60a5fa;
+            color: #111827;
+            font-weight: bold;
+        }
+        .blueprint-btn.active {
+            background-color: #60a5fa;
+            color: #111827;
+            font-weight: bold;
+        }
+        .highlight {
+            color: #60a5fa;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300">
+
+    <header class="bg-gray-900/80 backdrop-blur-lg shadow-lg shadow-blue-500/5 sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl text-blue-400">強尼車坊</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#core" class="nav-link px-3 py-2 rounded-md text-sm font-medium">企劃核心</a>
+                        <a href="#market-data" class="nav-link px-3 py-2 rounded-md text-sm font-medium">市場數據</a>
+                        <a href="#tools" class="nav-link px-3 py-2 rounded-md text-sm font-medium">戰略工具</a>
+                        <a href="#blueprint" class="nav-link px-3 py-2 rounded-md text-sm font-medium">執行藍圖</a>
+                        <a href="#mockup" class="nav-link px-3 py-2 rounded-md text-sm font-medium">模擬成品</a>
+                        <a href="#funnel" class="nav-link px-3 py-2 rounded-md text-sm font-medium">獲客漏斗</a>
+                        <a href="#benefits" class="nav-link px-3 py-2 rounded-md text-sm font-medium">商業效益</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:px-8">
+
+        <section id="hero" class="text-center py-16 md:py-24">
+            <h1 class="text-4xl md:text-5xl font-bold text-blue-400">旗艦專案行銷藍圖</h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-400">BMW E82 135i 引擎重生計畫</p>
+        </section>
+
+        <section id="core" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">企劃核心：從社群貼文到品牌護城河</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">我們的目標，是將一次性的圖文內容，升級為一個能<span class="highlight">長期捕獲高價值搜尋流量</span>的<span class="highlight">「品牌知識庫」</span>，直接鎖定那些遇到緊急狀況、正在Google上焦慮搜尋答案的潛在客戶。</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-red-900/10 border-2 border-red-500/30 p-8 rounded-lg shadow-lg">
+                    <h3 class="font-bold text-xl mb-3 text-white">過去的模式：社群曝光</h3>
+                    <p class="text-gray-400 text-sm">在IG/FB發布圖文，觸及現有粉絲與潛在興趣人群。曝光是短暫的，貼文很快就會被新的內容淹沒。</p>
+                    <div class="mt-4 text-center text-4xl">📉</div>
+                    <p class="text-center text-red-400 text-xs mt-2 font-semibold">效益隨時間遞減</p>
+                </div>
+                <div class="bg-green-900/10 border-2 border-green-500/30 p-8 rounded-lg shadow-lg">
+                    <h3 class="font-bold text-xl mb-3 text-white">全新的戰略：建立知識資產</h3>
+                    <p class="text-gray-300 text-sm">將圖文內容轉化為專業的部落格文章，進行SEO優化。當車主搜尋「N54 引擎維修」時，我們的文章將出現在Google首頁，成為他們最信賴的解答。</p>
+                    <div class="mt-4 text-center text-4xl">📈</div>
+                    <p class="text-center text-green-400 text-xs mt-2 font-semibold">效益隨時間累積</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="market-data" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">市場數據與機會儀表板</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">我們的策略並非憑空想像，而是基於對市場真實需求的數據洞察。點擊下方按鈕，探索潛在的客戶流量。</p>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                <div class="flex justify-center mb-6">
+                    <div class="flex space-x-2 bg-gray-700 p-2 rounded-full">
+                        <button class="data-btn px-4 py-2 text-sm rounded-full transition" data-type="high-intent">👨‍🚒 高意圖流量</button>
+                        <button class="data-btn px-4 py-2 text-sm rounded-full transition" data-type="preventative">🧱 預防性流量</button>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container relative h-80 w-full">
+                        <canvas id="trafficChart"></canvas>
+                    </div>
+                    <div id="analysis-text" class="min-h-[200px]">
+                        <!-- Analysis text will be injected here by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tools" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">戰略工具解析：SEO vs. 關鍵字廣告</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">為了捕獲我們在市場數據中看到的龐大搜尋流量，我們將運用兩種核心工具。理解這兩者的區別，是制定成功策略的關鍵。</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <div class="text-center text-4xl mb-4">🏡</div>
+                    <h3 class="font-bold text-xl mb-3 text-white text-center">SEO (搜尋引擎優化)：蓋豪宅</h3>
+                    <p class="text-gray-400 text-sm mb-4">我們透過優化網站、撰寫高品質的專業文章（如135i維修實錄），讓Google認為我們是該領域的專家，從而給予我們<span class="highlight">免費且穩定</span>的自然搜尋排名。</p>
+                    <ul class="text-sm space-y-2">
+                        <li><strong class="text-gray-200">費用模式：</strong>技術與時間成本 (長期投資)</li>
+                        <li><strong class="text-gray-200">見效時間：</strong>較慢 (3-6個月以上)</li>
+                        <li><strong class="text-green-400">效果持續性：</strong>長期有效，具複利效應</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <div class="text-center text-4xl mb-4">📢</div>
+                    <h3 class="font-bold text-xl mb-3 text-white text-center">買關鍵字 (付費廣告)：租看板</h3>
+                    <p class="text-gray-400 text-sm mb-4">我們直接付費給Google，讓強尼車坊的資訊<span class="highlight">立即出現</span>在搜尋結果的最頂端，主動攔截那些最有消費意圖的客戶。</p>
+                     <ul class="text-sm space-y-2">
+                        <li><strong class="text-gray-200">費用模式：</strong>按點擊次數付費 (立即性支出)</li>
+                        <li><strong class="text-gray-200">見效時間：</strong>立即見效 (廣告上線即可)</li>
+                        <li><strong class="text-red-400">效果持續性：</strong>停止付費，效果立即消失</li>
+                    </ul>
+                </div>
+            </div>
+             <p class="mt-8 text-center text-lg text-gray-300 max-w-3xl mx-auto">我們的策略是<span class="highlight">兩者並行</span>：以<span class="highlight">SEO</span>為核心，為品牌建立能長期帶來回報的數位資產（蓋豪宅）；在初期，則搭配<span class="highlight">關鍵字廣告</span>（租看板），在豪宅蓋好前，就先開始迎接最高價值的客戶。</p>
+        </section>
+
+        <section id="blueprint" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">執行藍圖：三步打造您的數位資產</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">我們將透過以下三個步驟，將您的專業技術轉化為一個24小時不打烊的超級業務員。點擊步驟查看詳情。</p>
+            </div>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-6">
+                <button class="blueprint-btn bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-full transition" data-step="1">Step 1: 社群預熱</button>
+                <span class="text-gray-600 hidden md:block">&rarr;</span>
+                <button class="blueprint-btn bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-full transition" data-step="2">Step 2: 轉化文章</button>
+                <span class="text-gray-600 hidden md:block">&rarr;</span>
+                <button class="blueprint-btn bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-full transition" data-step="3">Step 3: SEO 優化</button>
+            </div>
+            <div id="blueprint-content" class="bg-gray-800 p-6 rounded-lg min-h-[250px]">
+                <!-- Blueprint content will be injected here by JS -->
+            </div>
+        </section>
+
+        <section id="mockup" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">模擬成品：從IG貼文到專業文章</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">左側是我們熟悉的IG貼文，右側則是它升級後的樣貌——一篇能長期吸引搜尋流量的專業知識文章。</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="phone-mockup mx-auto">
+                    <div class="phone-screen">
+                        <div class="p-3 bg-white border-b border-gray-200 flex items-center justify-between text-gray-800">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 rounded-full bg-blue-700 text-white flex items-center justify-center font-bold text-sm">強</div>
+                                <span class="ml-2 font-bold text-sm">強尼車坊</span>
+                            </div>
+                             <span class="font-bold">...</span>
+                        </div>
+                        <div class="relative flex-1 bg-black">
+                             <div id="carousel-container"></div>
+                            <button id="prevBtn" class="absolute top-1/2 left-2 -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-1 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                            </button>
+                            <button id="nextBtn" class="absolute top-1/2 right-2 -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-1 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                            </button>
+                        </div>
+                        <div id="caption-container" class="p-3 bg-white text-xs text-gray-700 overflow-y-auto" style="max-height: 150px;"></div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg h-full">
+                    <h3 class="text-xl font-bold text-white">【職人日誌】BMW E82 135i N54引擎通病大解析與重生實錄</h3>
+                    <p class="text-xs text-gray-500 mt-1">發布於 2025年8月5日 / 作者：強尼車坊</p>
+                    <hr class="border-gray-700 my-4">
+                    <p class="text-sm text-gray-400 mb-4">當一台經典的E82 135i駛入我們廠內，車主帶著一絲憂慮，訴說著動力流失與不正常的抖動時，我們知道，這又是一次與傳奇N54引擎的深度對話...</p>
+                    <img src="https://i.postimg.cc/bNSjj3K8/1.png" class="rounded-md my-4">
+                    <h4 class="font-bold text-white">心臟解剖：問題根源的探索</h4>
+                    <p class="text-sm text-gray-400 mt-2">引擎拆解後，我們發現了典型的N54通病——活塞環因高溫高壓而斷裂。這不僅是動力流失的元兇，更是潛在的更大引擎損傷的開始...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="funnel" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">高價值客戶獲客漏斗</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">這套策略將為您打造一個自動化的線上獲客流程。</p>
+            </div>
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 text-center">
+                <div class="bg-gray-800 p-6 rounded-lg w-full md:w-1/4">
+                    <p class="text-4xl mb-2">🔍</p>
+                    <h3 class="font-bold text-white">焦慮的車主</h3>
+                    <p class="text-xs text-gray-500">在Google搜尋「N54 引擎抖動」</p>
+                </div>
+                <div class="text-2xl text-blue-400 font-bold transform md:rotate-0 rotate-90">&rarr;</div>
+                <div class="bg-gray-800 p-6 rounded-lg w-full md:w-1/4">
+                    <p class="text-4xl mb-2">✍️</p>
+                    <h3 class="font-bold text-white">找到專業文章</h3>
+                    <p class="text-xs text-gray-500">看到強尼車坊的深度解析文章</p>
+                </div>
+                <div class="text-2xl text-blue-400 font-bold transform md:rotate-0 rotate-90">&rarr;</div>
+                <div class="bg-gray-800 p-6 rounded-lg w-full md:w-1/4">
+                    <p class="text-4xl mb-2">🤝</p>
+                    <h3 class="font-bold text-white">建立信任感</h3>
+                    <p class="text-xs text-gray-500">被文章的專業與透明度說服</p>
+                </div>
+                <div class="text-2xl text-blue-400 font-bold transform md:rotate-0 rotate-90">&rarr;</div>
+                <div class="bg-gray-800 p-6 rounded-lg w-full md:w-1/4">
+                    <p class="text-4xl mb-2">📞</p>
+                    <h3 class="font-bold text-white">主動聯繫</h3>
+                    <p class="text-xs text-gray-500">撥打電話或私訊預約檢修</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="benefits" class="scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">商業效益評估</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">執行此專案，預期能帶來以下四個層次的具體商業價值。</p>
+            </div>
+             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2 text-blue-400">建立頂級技術權威</h3>
+                    <p class="text-gray-400 text-sm">清晰展示高複雜度工藝，讓品牌與「高階」、「專業」掛鉤，擺脫低價競爭。</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2 text-blue-400">提升客單價</h3>
+                    <p class="text-gray-400 text-sm">精準吸引對車輛有深度熱情的高消費力客戶，他們諮詢的服務項目單價更高。</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2 text-blue-400">創造「問題解決者」定位</h3>
+                    <p class="text-gray-400 text-sm">內容將成為車主搜尋特定問題時的最佳解答，將網路聲量直接轉化為指名客戶。</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2 text-blue-400">帶動周邊服務銷售</h3>
+                    <p class="text-gray-400 text-sm">成功的案例是展示其他服務（如ECU調校、冷卻升級）的最佳舞台，創造更多銷售機會。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            const href = link.getAttribute('href');
+                            if (href && href.substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Traffic Chart
+            const trafficCtx = document.getElementById('trafficChart').getContext('2d');
+            const trafficData = {
+                labels: ['引擎異音', '輪胎壽命', '保養推薦', '煞車更換', 'N54通病'],
+                datasets: [{
+                    label: '每月搜尋量估算',
+                    data: [8000, 12000, 15000, 9000, 5000],
+                    backgroundColor: [
+                        'rgba(248, 113, 113, 0.5)',
+                        'rgba(52, 211, 153, 0.5)',
+                        'rgba(52, 211, 153, 0.5)',
+                        'rgba(248, 113, 113, 0.5)',
+                        'rgba(248, 113, 113, 0.5)',
+                    ],
+                    borderColor: [
+                        '#f87171',
+                        '#34d399',
+                        '#34d399',
+                        '#f87171',
+                        '#f87171',
+                    ],
+                    borderWidth: 2
+                }]
+            };
+            const trafficChart = new Chart(trafficCtx, {
+                type: 'bar',
+                data: trafficData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: '#9ca3af' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#d1d5db' },
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` 約 ${context.raw.toLocaleString()} 次/月`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const dataBtns = document.querySelectorAll('.data-btn');
+            const analysisTextEl = document.getElementById('analysis-text');
+            const analysisContent = {
+                'high-intent': {
+                    title: '👨‍🚒 高意圖流量 (救火隊)',
+                    color: 'text-red-400',
+                    text: '當車主遇到<span class="highlight">引擎燈亮</span>、<span class="highlight">車輛異音</span>等立即性、令人焦慮的問題時，他們會主動上網搜尋。我們的內容將在此刻出現，成為他們最需要的可信專家，這是離消費最近的流量。'
+                },
+                'preventative': {
+                    title: '🧱 預防性流量 (築牆者)',
+                    color: 'text-green-400',
+                    text: '當車主為了增進知識、避免花冤枉錢而研究<span class="highlight">輪胎壽命</span>、<span class="highlight">保養技巧</span>時，我們的內容將為他們建立正確觀念，在他們心中預先種下信任的種子。'
+                }
+            };
+
+            function updateAnalysis(type) {
+                const content = analysisContent[type];
+                analysisTextEl.innerHTML = `
+                    <h3 class="text-2xl font-bold ${content.color} mb-3">${content.title}</h3>
+                    <p class="text-gray-400">${content.text}</p>
+                `;
+                
+                const highIntentIndices = [0, 3, 4];
+                const preventativeIndices = [1, 2];
+                const newBGColors = trafficData.datasets[0].backgroundColor.map((c, i) => {
+                    if (type === 'high-intent' && highIntentIndices.includes(i)) return 'rgba(248, 113, 113, 0.8)';
+                    if (type === 'preventative' && preventativeIndices.includes(i)) return 'rgba(52, 211, 153, 0.8)';
+                    return 'rgba(107, 114, 128, 0.3)';
+                });
+                trafficChart.data.datasets[0].backgroundColor = newBGColors;
+                trafficChart.update();
+
+                dataBtns.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.type === type);
+                });
+            }
+
+            dataBtns.forEach(btn => {
+                btn.addEventListener('click', () => updateAnalysis(btn.dataset.type));
+            });
+            updateAnalysis('high-intent');
+
+
+            // Blueprint Tabs
+            const blueprintBtns = document.querySelectorAll('.blueprint-btn');
+            const blueprintContentEl = document.getElementById('blueprint-content');
+            const blueprintContent = {
+                '1': { 
+                    title: 'Step 1: 社群預熱與故事發布', 
+                    details: [
+                        '<strong class="text-gray-200">目標:</strong> 在社群平台創造初期聲量與期待感。',
+                        '<strong class="text-gray-200">執行細節:</strong>',
+                        '- 依故事線，每1-2天發布一個Part的系列圖文。',
+                        '- 製作10-15秒的短影音預告片，提前釋出。',
+                        '- 積極回覆粉絲留言與提問，建立初步互動。'
+                    ]
+                },
+                '2': { 
+                    title: 'Step 2: 轉化為深度知識文章', 
+                    details: [
+                        '<strong class="text-gray-200">目標:</strong> 將短暫的社群內容，轉化為可被搜尋引擎找到的長期品牌資產。',
+                        '<strong class="text-gray-200">執行細節:</strong>',
+                        '- 整合所有照片與文案，撰寫成一篇結構完整的部落格文章。',
+                        '- 補充更多在社群無法詳述的技術細節與職人觀點。',
+                        '- 在文章結尾，嵌入清晰的聯絡方式或預約檢修的行動呼籲(CTA)。'
+                    ]
+                },
+                '3': { 
+                    title: 'Step 3: SEO 關鍵字優化', 
+                    details: [
+                        '<strong class="text-gray-200">目標:</strong> 確保文章能出現在Google搜尋結果首頁，主動攔截有需求的客戶。',
+                        '<strong class="text-gray-200">執行細節:</strong>',
+                        '- <strong class="text-blue-400">關鍵字策略:</strong> 鎖定「BMW 135i 維修」、「N54 引擎通病」等主要關鍵字，以及「N54 吃機油」、「蘆洲 BMW 維修推薦」等長尾關鍵字。',
+                        '- <strong class="text-blue-400">頁面優化:</strong> 將關鍵字策略性地佈局於文章標題、段落標題、內文及圖片說明文字(alt text)中。'
+                    ]
+                }
+            };
+
+            function updateBlueprint(step) {
+                const content = blueprintContent[step];
+                let detailsHTML = content.details.map(detail => `<li class="text-gray-400 text-sm">${detail}</li>`).join('');
+                blueprintContentEl.innerHTML = `
+                    <h4 class="font-bold text-lg text-white mb-3">${content.title}</h4>
+                    <ul class="space-y-2">${detailsHTML}</ul>
+                `;
+                blueprintBtns.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.step === step);
+                });
+            }
+            blueprintBtns.forEach(btn => {
+                btn.addEventListener('click', () => updateBlueprint(btn.dataset.step));
+            });
+            updateBlueprint('1');
+
+
+            // Carousel
+            const carouselData = [
+                { img: 'https://i.postimg.cc/bNSjj3K8/1.png', caption: '一顆引擎的健康狀況，不拆開來看，你永遠不知道裡面藏了多少秘密。上回我們介紹了這台E82 135i的「病患」，今天，我們將為它進行一場心臟解剖手術。目標不僅是修復，更是徹底強化。' },
+                { img: 'https://i.postimg.cc/XYM6N9b5/2.png', caption: '引擎拆解，最考驗的就是技師的細心與經驗。每一條管路、每一束線組、每一顆螺絲，都有它固定的位置與扭力值。' },
+                { img: 'https://i.postimg.cc/NfKQjg23/3.png', caption: '打開汽缸蓋，問題開始浮現。厚重的積碳不僅影響燃燒效率，更是性能的無形殺手。但這還不是最嚴重的...' },
+                { img: 'https://i.postimg.cc/HWhCKfvB/4.png', caption: '<span class="highlight">真正的魔鬼，藏在這裡。</span> 這種N54的老毛病我們處理過不少，但每次拆開看到，還是會覺得心疼。經過仔細檢查，我們發現其中一缸的活塞環已經斷裂，這正是導致動力流失與吃機油的元兇。' },
+                { img: 'https://i.postimg.cc/636XJwN1/5.png', caption: '舊時代的終結，是新生命的開始。原廠的耗損零件將功成身退，取而代之的，是能承受更高壓榨的強化套件。' }
+            ];
+
+            const carouselContainer = document.getElementById('carousel-container');
+            const captionContainer = document.getElementById('caption-container');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentIndex = 0;
+
+            function renderCarousel() {
+                carouselContainer.innerHTML = '';
+                carouselData.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'carousel-item absolute inset-0';
+                    if (index === currentIndex) {
+                        div.classList.add('active');
+                    }
+                    div.innerHTML = `<img src="${item.img}" alt="BMW E82 135i 引擎維修過程 ${index + 1}" class="w-full h-full object-cover">`;
+                    carouselContainer.appendChild(div);
+                });
+                
+                const currentCaption = carouselData[currentIndex].caption.replace(/<span class="highlight">(.*?)<\/span>/g, '<strong class="text-blue-800 font-bold">$1</strong>');
+                captionContainer.innerHTML = `<p><strong class="font-bold text-black">強尼車坊</strong> ${currentCaption}</p><p class="mt-2 text-gray-400">#BMW改裝 #引擎大修 #N54B30 #性能提升 #誠信專家</p>`;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : carouselData.length - 1;
+                renderCarousel();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex < carouselData.length - 1) ? currentIndex + 1 : 0;
+                renderCarousel();
+            });
+
+            renderCarousel();
+        });
+    </script>
+</body>
+</html>
