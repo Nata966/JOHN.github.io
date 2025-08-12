@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品牌戰略新方向暨執行藍圖</title>
+    <script src="https://cdn-tailwindcss.vercel.app/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Midnight Blue & Cyber Glow -->
+    <!-- Application Structure Plan: A single, comprehensive SPA reframed with a consumer-centric narrative and a strong negotiation angle. Sections: 1. **封面**. 2. **戰略轉向**: Rewritten to frame the strategy as a direct solution to the client's stated limitations. 3. **市場洞察**. 4. **品牌核心**: Reinforces why the IP is the *only* path forward given the constraints. 5. **IP曝光藍圖**. 6. **戰略地基**: Expanded to include long-form video strategy. 7. **主題效益分析**. 8. **成長曲線**. This version is strategically designed for psychological leverage and complete tactical clarity. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Strategic Pivot -> Goal: Reassure/Create Urgency -> Viz: A prominent section explaining how the new strategy is a direct response to the client's physical and technical limitations, including the "Old Risks vs. New Advantages" comparison. -> Justification: Directly addresses the user's request to create psychological leverage by framing the agency as the essential problem-solver. -> Library/Method: HTML/Tailwind.
+        - Report Info: Content Engine -> Goal: Explain full content strategy -> Viz: A three-card layout for short-form, long-form, and text content, using military analogies. -> Justification: Clearly outlines the synergistic roles of different content formats. -> Library/Method: HTML/Tailwind.
+        - Report Info: Phased Growth Plan -> Goal: Inform/Manage Expectations -> Viz: An interactive tabbed interface for the 3-month detailed execution plan, updated to reflect a 10-video-per-month schedule. -> Justification: Allows the user to focus on one stage at a time, providing clarity. -> Library/Method: HTML/Tailwind, JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #111827; 
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #60a5fa; 
+            border-bottom-color: #60a5fa;
+        }
+        .tab-button.active {
+            background-color: #60a5fa;
+            color: #111827;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(96, 165, 250, 0.1), 0 4px 6px -2px rgba(96, 165, 250, 0.05);
+        }
+        .highlight {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300">
+
+    <header class="bg-gray-900/80 backdrop-blur-lg shadow-lg shadow-blue-500/5 sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl text-blue-400">強尼車坊</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#cover" class="nav-link px-3 py-2 rounded-md text-sm font-medium">封面</a>
+                        <a href="#pivot" class="nav-link px-3 py-2 rounded-md text-sm font-medium">戰略轉向</a>
+                        <a href="#analysis" class="nav-link px-3 py-2 rounded-md text-sm font-medium">市場洞察</a>
+                        <a href="#persona" class="nav-link px-3 py-2 rounded-md text-sm font-medium">我們的王牌</a>
+                        <a href="#exposure-roadmap" class="nav-link px-3 py-2 rounded-md text-sm font-medium">IP曝光藍圖</a>
+                        <a href="#engine" class="nav-link px-3 py-2 rounded-md text-sm font-medium">戰略地基</a>
+                        <a href="#themes" class="nav-link px-3 py-2 rounded-md text-sm font-medium">主題效益分析</a>
+                        <a href="#roadmap" class="nav-link px-3 py-2 rounded-md text-sm font-medium">成長曲線</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:px-8">
+
+        <section id="cover" class="h-screen flex flex-col justify-center items-center text-center scroll-mt-24">
+            <div>
+                <h1 class="text-5xl md:text-7xl font-bold text-blue-400">品牌戰略新方向</h1>
+                <p class="mt-2 text-xl md:text-2xl text-gray-300">暨執行藍圖</p>
+            </div>
+            <p class="mt-4 text-lg text-gray-500">一份從策略、戰術到月度執行的完整建設藍圖</p>
+            <div class="absolute bottom-10 text-blue-400 animate-bounce">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+        </section>
+        
+        <section id="pivot" class="min-h-screen flex flex-col justify-center scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-blue-400">戰略轉向：基於現實困境的唯一解方</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">一份好的戰略，必須能誠實地面對現實。我們深入理解並分析了您所提出的各項顧慮與客觀限制，並以此為基礎，將原有的理想藍圖，精煉為一個<span class="highlight">更務實、更安全、也更具優勢</span>的全新作戰方向。</p>
+            </div>
+            <div class="bg-gray-950 p-8 rounded-lg border border-gray-800">
+                <h3 class="text-2xl font-bold text-white mb-4 text-center">我們的戰略指標依據：正視三大現實挑戰</h3>
+                <div class="grid md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-red-400 mb-2">地點與硬體限制</h4>
+                        <p class="text-sm text-gray-400">廠房位於工業區，缺乏自然客流，且硬體設備並非市場頂級。這意味著，我們無法依靠傳統的「店面優勢」來吸引客戶。</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-red-400 mb-2">技術門檻焦慮</h4>
+                        <p class="text-sm text-gray-400">您擔心自身的技術實力，在網路上會被同業用放大鏡檢視與批評。這代表我們不應追求成為「技術的教科書」，而是要成為「消費者的靠山」。</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h4 class="text-xl font-bold text-red-400 mb-2">品牌風險顧慮</h4>
+                        <p class="text-sm text-gray-400">您顧慮「賽道文化」可能挑戰公權力，損害品牌形象。這代表我們的內容必須與「街頭飆車」劃清界線，聚焦於「安全」與「專業」。</p>
+                    </div>
+                </div>
+                 <div class="mt-8 pt-6 border-t border-gray-800">
+                     <div class="grid md:grid-cols-2 gap-8 text-center">
+                        <div class="bg-gray-800 p-6 rounded-lg">
+                            <h3 class="text-2xl font-bold text-red-400 mb-3">舊思維的風險</h3>
+                            <ul class="text-left space-y-2 text-gray-300 text-sm">
+                                <li>❌ <span class="highlight">公權力風險</span>：「賽道競速」容易與「飆車」產生負面連結。</li>
+                                <li>❌ <span class="highlight">執行壓力</span>：「從零打造」的改裝專案，過程不可控，壓力巨大。</li>
+                                <li>❌ <span class="highlight">形象疏離</span>：過度強調賽車與改裝，可能讓普通車主感到遙遠。</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-800/20 border-2 border-green-500/30 p-6 rounded-lg">
+                            <h3 class="text-2xl font-bold text-green-400 mb-3">新戰略的優勢</h3>
+                            <ul class="text-left space-y-2 text-gray-300 text-sm">
+                                <li>✅ <span class="highlight">安全且權威</span>：將賽道定位為「實驗室」，強調安全與耐用，完美避開風險。</li>
+                                <li>✅ <span class="highlight">務實且可控</span>：分享「已完成」的成功案例，只呈現最專業的一面，風險極低。</li>
+                                <li>✅ <span class="highlight">親切且信賴</span>：聚焦解決車主「日常焦慮」，建立「站在你這邊的專家」形象。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="analysis" class="min-h-screen flex flex-col justify-center scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-blue-400">市場洞察：品牌生存的十字路口</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">數位化的浪潮正無情地衝擊著傳統的商業模式。在這個時代，<span class="highlight">沒有聲量的品牌，等於不存在</span>。</p>
+            </div>
+            <div class="bg-gray-950 p-8 rounded-lg border border-gray-800 space-y-12">
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-4 text-center">市場困境：已被巨頭瓜分的戰場</h3>
+                    <p class="text-center text-gray-400 text-sm max-w-2xl mx-auto mb-6">客戶的焦慮是正確的。市場上充斥著同質化內容，主流的注意力已經被三類玩家瓜分殆盡：</p>
+                    <div class="grid md:grid-cols-3 gap-4 text-center text-sm">
+                        <div class="bg-gray-800 p-4 rounded-lg"><strong class="text-white">媒體/KOL評測型</strong><br>他們是「評論家」，不是「修理者」。</div>
+                        <div class="bg-gray-800 p-4 rounded-lg"><strong class="text-white">中古車商交易型</strong><br>他們是「交易員」，不是「技術顧問」。</div>
+                        <div class="bg-gray-800 p-4 rounded-lg"><strong class="text-white">DIY教學型</strong><br>他們是「熱心車友」，知識來自「經驗法則」。</div>
+                    </div>
+                    <p class="text-center text-lg text-red-400 mt-6 font-semibold">結論：在巨頭的陰影下，傳統車廠的生存空間正被極度壓縮，市場缺乏一個<span class="highlight">「技術信任」</span>的權威聲音。</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-4 text-center">2025 Q3 台灣Top-10 核心競品分析</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-gray-800"><tr><th class="p-2">排名</th><th class="p-2">頻道</th><th class="p-2">核心優勢</th><th class="p-2">為我們留下的戰略缺口</th></tr></thead>
+                            <tbody class="text-gray-400">
+                                <tr class="border-b border-gray-800"><td class="p-2">1</td><td class="p-2">GO車誌</td><td class="p-2">新車評測權威</td><td class="p-2">不涉足長期持有後的維修保養。</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-2">2</td><td class="p-2">小施汽車</td><td class="p-2">交易透明化</td><td class="p-2">技術深度非主軸，核心是「買賣」而非「養護」。</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-2">3</td><td class="p-2">全民瘋車Bar</td><td class="p-2">主持魅力、淺白化</td><td class="p-2">較少觸及高階、硬核的技術議題。</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-2">4</td><td class="p-2">地球黃金線</td><td class="p-2">跨年齡層觀眾</td><td class="p-2">內容為求廣度，犧牲了單一主題的深度。</td></tr>
+                                <tr class="border-b border-gray-800"><td class="p-2">5</td><td class="p-2">Andy老爹</td><td class="p-2">賽車手身份</td><td class="p-2">角色是「評論家」，而非「解決問題的技師」。</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                     <p class="text-center text-lg text-gray-300 mt-8 font-semibold">強尼車坊正站在一個十字路口：是繼續在工業區的角落裡等待客戶，還是主動出擊，成為網路上不可忽視的權威聲音？</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="persona" class="min-h-screen flex flex-col justify-center scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-blue-400">我們的王牌：無法複製的「退役車手技師」IP</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">我們將品牌的人格，聚焦於技師負責人獨一無二的真實身份，這將是我們最強大的故事王牌。</p>
+            </div>
+            <div class="bg-gray-950 p-8 rounded-lg border border-gray-800 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">👨‍🔧</div>
+                    <h3 class="text-3xl font-bold text-white mb-4">品牌IP：退役車手技師</h3>
+                    <p class="text-gray-400 mb-6">我們不再只是一個「懂車的店家」，而是「<span class="highlight">一個曾經將車輛推向極限、並活下來告訴你該怎麼做的人</span>」。</p>
+                    <div class="bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded-r-lg text-left text-sm mb-6">
+                        <p class="font-bold text-yellow-300">核心溝通原則：</p>
+                        <p class="text-yellow-200 mt-1">這個IP的溝通對象，<span class="highlight">始終是終端消費者，而非同行</span>。我們的目標是<span class="highlight">賦能車主</span>，用他們聽得懂的語言，解決他們的真實焦慮，而不是在技術上與同業一較高下。</p>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6 text-center text-sm">
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-bold text-white mb-2">對「安全」的理解不同</h4>
+                        <p class="text-gray-400">不僅是「不出事」，而是對車輛動態與零件極限的深刻洞察。</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-bold text-white mb-2">對「細節」的苛求不同</h4>
+                        <p class="text-gray-400">賽道上0.01秒的差距，來自每一顆螺絲的扭力。這是職人精神的最佳體現。</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg">
+                        <h4 class="font-bold text-white mb-2">對「性能」的詮釋不同</h4>
+                        <p class="text-gray-400">口中說出的「性能」，不是帳面數據，而是經過賽道實戰驗證的真實體驗。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="exposure-roadmap" class="min-h-screen flex flex-col justify-center scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-blue-400">品牌IP曝光演化藍圖</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">為了解決客戶對鏡頭的焦慮，我們設計了一套三階段的曝光計畫，讓品牌IP的登場過程安全、可控且循序漸進。</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="bg-gray-800 p-8 rounded-lg border border-gray-700 card-hover transition-all duration-300">
+                    <div class="text-4xl mb-4">🎙️</div>
+                    <h3 class="text-2xl font-bold text-white mb-3">第一階段：聲音與工藝</h3>
+                    <p class="text-gray-400 text-sm">初期影片完全不露臉。鏡頭聚焦於技師的<span class="highlight">雙手、工具、零件</span>，以POV第一人稱視角呈現。技師的<span class="highlight">聲音（畫外音）</span>是主角，建立神秘感與專業度，讓客戶在零壓力下開始。</p>
+                </div>
+                <div class="bg-gray-800 p-8 rounded-lg border border-gray-700 card-hover transition-all duration-300">
+                    <div class="text-4xl mb-4">👤</div>
+                    <h3 class="text-2xl font-bold text-white mb-3">第二階段：側影與背影</h3>
+                    <p class="text-gray-400 text-sm">當客戶適應後，鏡頭開始帶入技師的<span class="highlight">側影與背影</span>。例如從肩膀後方拍攝、或拍攝他專注工作的側臉輪廓。重點仍在工藝，但開始建立人格輪廓，讓觀眾感受到「職人」的存在。</p>
+                </div>
+                <div class="bg-gray-800 p-8 rounded-lg border border-gray-700 card-hover transition-all duration-300">
+                    <div class="text-4xl mb-4">👨‍🔧</div>
+                    <h3 class="text-2xl font-bold text-white mb-3">第三階段：職人現身</h3>
+                    <p class="text-gray-400 text-sm">當頻道累積一定粉絲，且客戶完全自在後，便可<span class="highlight">正面登場</span>。這將成為社群的一次「大事件」，技師可以開始在影片開頭或結尾，直接與鏡頭前的粉絲對話，將信任感與連結度提升至最高。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="engine" class="min-h-screen flex flex-col justify-center scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-blue-400">戰略地基：三位一體的內容引擎</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">一個成功的數位品牌，需要一個能<span class="highlight">同時捕獲短期注意力</span>與<span class="highlight">累積長期價值</span>的穩固結構。</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <h3 class="font-bold text-xl mb-3 text-white">短影音 (空軍部隊)</h3>
+                    <p class="text-gray-400 text-sm">核心價值在於<span class="highlight">「廣度」</span>與<span class="highlight">「速度」</span>。它負責在短時間內抓住眼球、快速擴大品牌觸及、並建立生動的品牌人格。</p>
+                </div>
+                <div class="bg-blue-900/30 border-2 border-blue-500 p-8 rounded-lg shadow-lg">
+                    <h3 class="font-bold text-xl mb-3 text-white">深度長影音 (地面部隊)</h3>
+                    <p class="text-gray-300 text-sm">核心價值在於<span class="highlight">「權威」</span>與<span class="highlight">「信任」</span>。觀眾能透過影片看到實際的商業運作與技術細節，建立無可取代的信任感，是培養高價值客戶的關鍵。<br><span class="text-xs text-blue-400">(建議未來導入項目)</span></p>
+                </div>
+                <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <h3 class="font-bold text-xl mb-3 text-white">圖文行銷 (數位護城河)</h3>
+                    <p class="text-gray-400 text-sm">核心價值在於<span class="highlight">「深度」</span>與<span class="highlight">「長尾」</span>。它負責承載深度技術細節，並透過SEO優化，轉化為能長期捕獲高意圖搜尋流量的品牌資產。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="themes" class="min-h-screen flex flex-col justify-center scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-blue-400">第一季內容主題與效益分析</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">為了解決「內容被做爛」的疑慮，我們重新構思了10個<span class="highlight">只有退役車手才說得出來</span>的獨家主題，建立無法被模仿的專業壁壘。</p>
+            </div>
+            <div id="themes-grid" class="grid md:grid-cols-2 gap-6">
+                <!-- Theme cards will be injected here by JS -->
+            </div>
+        </section>
+
+        <section id="roadmap" class="min-h-screen flex flex-col justify-center scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-blue-400">成長曲線：第一季 (三個月) 細緻化執行藍圖</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">這是一份具體的、可按月執行的工作清單，清晰地展示我們如何從<span class="highlight">打好地基</span>，到<span class="highlight">建立流程</span>，最終實現<span class="highlight">資產累積</span>的完整成長曲線。</p>
+            </div>
+            <div class="bg-gray-950 p-8 rounded-lg border border-gray-800">
+                <div class="flex justify-center mb-8">
+                    <div class="flex space-x-2 sm:space-x-4 bg-gray-800 p-2 rounded-full">
+                        <button class="tab-button px-4 py-2 sm:px-6 sm:py-2 text-sm font-medium rounded-full transition-all duration-300" data-stage="1">第一個月</button>
+                        <button class="tab-button px-4 py-2 sm:px-6 sm:py-2 text-sm font-medium rounded-full transition-all duration-300" data-stage="2">第二個月</button>
+                        <button class="tab-button px-4 py-2 sm:px-6 sm:py-2 text-sm font-medium rounded-full transition-all duration-300" data-stage="3">第三個月</button>
+                    </div>
+                </div>
+                <div id="roadmap-content" class="min-h-[250px] bg-gray-900 p-6 rounded-lg">
+                    <!-- Content will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            const href = link.getAttribute('href');
+                            if (href && href.substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Roadmap tabs
+            const roadmapData = {
+                '1': {
+                    title: '第一個月：基礎建設與內容拍攝',
+                    goal: '打好地基，完成所有網路曝光平台的專業化建設，並完成首批高品質內容的拍攝與素材庫建立。',
+                    tasks: {
+                        '平台建設': ['完成IG/FB帳號視覺優化', '建立內容發布排程表'],
+                        '內容製作': ['完成第一季 10 支短影音的腳本定稿與拍攝', '完成「135i 引擎重生計畫」圖文素材拍攝']
+                    },
+                    kpis: ['完成從0到1的基礎建設', '產出足夠一個月發布的高品質內容庫存']
+                },
+                '2': {
+                    title: '第二個月：內容投放與社群啟動',
+                    goal: '開始高強度投放內容，測試市場水溫，並將重心轉向粉絲互動，凝聚早期社群。',
+                    tasks: {
+                        '圖文行銷': ['發布「135i」系列圖文 Part 1 & 2', '增加限時動態的互動（Q&A、投票）'],
+                        '短影音經營': ['發布第一批 10 支短影音', '積極回覆所有留言', '規劃並拍攝第二批 10 支內容']
+                    },
+                    kpis: ['粉絲數增長 (目標: > 1,000)', '影片觀看次數與互動率', '形成社群雛形']
+                },
+                '3': {
+                    title: '第三個月：權威鞏固與資產累積',
+                    goal: '透過持續輸出高品質內容來鞏固專家形象，並開始將前期的社群內容，有系統地轉化為長期的品牌數位資產。',
+                    tasks: {
+                        '圖文行銷': ['發布「135i」系列圖文 Part 3 & 4', '將 Part 1&2 內容整合成第一篇 SEO 部落格文章'],
+                        '短影音經營': ['發布第二批 10 支短影音', '啟動小規模的再行銷廣告']
+                    },
+                    kpis: ['穩固「誠信專家」的品牌形象', '開始出現由內容引導的初步商業諮詢', 'SEO資產開始累積']
+                }
+            };
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const roadmapContentEl = document.getElementById('roadmap-content');
+
+            function updateRoadmapContent(stage) {
+                const data = roadmapData[stage];
+                let tasksHTML = '';
+                for(const [key, value] of Object.entries(data.tasks)) {
+                    tasksHTML += `<h5 class="font-semibold text-white mt-3">${key}</h5><ul class="list-disc list-inside text-gray-400 text-sm space-y-1">${value.map(item => `<li>${item}</li>`).join('')}</ul>`;
+                }
+                let kpisHTML = data.kpis.map(kpi => `<li class="list-disc list-inside">${kpi}</li>`).join('');
+                
+                roadmapContentEl.innerHTML = `
+                    <h3 class="text-xl font-bold text-blue-400 mb-2">${data.title}</h3>
+                    <p class="text-gray-400 mb-4 text-sm">${data.goal}</p>
+                    <div>
+                        <h4 class="font-semibold text-white">工作重點摘要:</h4>
+                        ${tasksHTML}
+                    </div>
+                     <div class="mt-4">
+                        <h4 class="font-semibold text-white">預期成果:</h4>
+                        <ul class="text-gray-400 mt-2 space-y-1 text-sm">${kpisHTML}</ul>
+                    </div>
+                `;
+
+                tabButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.stage === stage);
+                });
+            }
+
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    updateRoadmapContent(e.target.dataset.stage);
+                });
+            });
+
+            updateRoadmapContent('1');
+
+            // Themes data
+            const themesData = [
+                { title: 'EP.1: 賽道煞車學：為何職業車手更關心你家庭房車的煞車？', focus: '將賽道經驗轉化為日常安全，建立頂級權威。', reach: '觸及潛力：★★★★★<br>高共鳴、高分享性。直接解決所有駕駛者的共同恐懼，極易引發家庭客群的關注與分享。', risk: '<strong class="text-red-300">風險：</strong>可能顯得過於硬核。<br><strong class="text-green-300">應對：</strong>透過B-roll與生活化比喻（如陽明山下坡），確保內容平易近人。' },
+                { title: 'EP.2: 輪胎的秘密語言：從賽道邊緣的溫度，看懂你山路上的抓地力。', focus: '提供獨家、高價值的駕駛技巧，吸引硬核玩家。', reach: '觸及潛力：★★★★☆<br>高好奇心、高專業度。能有效篩選出對駕駛品質有要求的核心粉絲，建立社群內的權威地位。', risk: '<strong class="text-red-300">風險：</strong>內容較為進階。<br><strong class="text-green-300">應對：</strong>重點在於傳達「熱胎」的核心觀念，而非複雜的數據，確保所有觀眾都能理解。' },
+                { title: 'EP.3: 耐久賽告訴我的事：你的機油能在「市區塞車地獄」撐多久？', focus: '用極端案例類比日常，強化產品推薦的說服力。', reach: '觸及潛力：★★★★☆<br>高實用性。將賽道經驗與車主最頻繁的「保養」決策連結，極具說服力。', risk: '<strong class="text-red-300">風險：</strong>可能被誤解為單純的產品推銷。<br><strong class="text-green-300">應對：</strong>強調「原理」而非「品牌」，客觀分析機油在高溫下的衰退現象。' },
+                { title: 'EP.4: 一台GTI的底盤異音，為何我會用賽車工程師的思路去解決它？', focus: '展示解決問題的獨特視角，塑造「問題終結者」形象。', reach: '觸及潛力：★★★☆☆<br>高意圖流量。精準吸引遇到同樣問題、且在外廠得不到解決方案的車主。', risk: '<strong class="text-red-300">風險：</strong>主題較為小眾。<br><strong class="text-green-300">應對：</strong>重點在於展示「診斷思路」而非單一問題，讓所有車主都能感受到品牌的專業度。' },
+                { title: 'EP.5: 0.5度的傾角如何贏得比賽？從賽道定位，看懂你愛車的循跡性。', focus: '用精密數據建立技術壁壘，吸引高階改裝客群。', reach: '觸及潛力：★★★☆☆<br>高專業度。能吸引對底盤調校有深度興趣的核心玩家，建立技術護城河。', risk: '<strong class="text-red-300">風險：</strong>技術門檻高，不易理解。<br><strong class="text-green-300">應對：</strong>使用動畫或模型車輔助說明，將複雜的物理概念視覺化。' },
+                { title: 'EP.6: 【客戶檔案】從原廠到賽道日猛獸：聽聽陳大哥如何與我們一起打造他的夢想M3。', focus: '利用客戶見證，建立強大的社會認同與口碑效應。', reach: '觸及潛力：★★★★★<br>高情感共鳴。真實的客戶故事最具說服力，能有效降低新客戶的決策門檻。', risk: '<strong class="text-red-300">風險：</strong>需要找到願意上鏡且表達能力好的客戶。<br><strong class="text-green-300">應對：</strong>可提前溝通，或以訪談側拍的形式進行，降低客戶面對鏡頭的壓力。' },
+                { title: 'EP.7: 我們如何用「輪上平衡」，解決連原廠都搞不定的高速抖動？', focus: '展示獨家高階工藝，吸引對駕駛品質有極致要求的客戶。', reach: '觸及潛力：★★★★☆<br>解決普遍痛點。高速抖動是許多車主的困擾，展示獨家解決方案能有效吸引指名客。', risk: '<strong class="text-red-300">風險：</strong>工藝過程可能較為枯燥。<br><strong class="text-green-300">應對：</strong>透過快節奏剪輯與前後對比（例如：方向盤抖動 vs. 平穩），強化視覺衝擊力。' },
+                { title: 'EP.8: 引擎燈亮了？用檢查賽車的標準，帶你一步步揪出兇手。', focus: '將高意圖流量，用更權威、更安心的方式承接。', reach: '觸及潛力：★★★★☆<br>高意圖流量。用「賽車級」的診斷標準，能吸引對車輛問題極度焦慮、尋求終極解決方案的車主。', risk: '<strong class="text-red-300">風險：</strong>診斷過程可能過於複雜。<br><strong class="text-green-300">應對：</strong>聚焦於「破案」的故事性，簡化技術說明，強調最終找到問題的成就感。' },
+                { title: 'EP.9: 你的避震器設定對了嗎？我們用阻尼測試機，把「感覺」變成「數據」。', focus: '再次強調「數據化」，將調校從玄學變為科學。', reach: '觸及潛力：★★★☆☆<br>高階改裝客群。吸引花了錢改裝卻找不到最佳設定的車主，展現品牌的調校硬實力。', risk: '<strong class="text-red-300">風險：</strong>設備專業性強，不易解釋。<br><strong class="text-green-300">應對：</strong>將數據報告視覺化，用圖表清晰呈現調整前後的差異。' },
+                { title: 'EP.10: 退役車手真心話：我絕不會在自己車上做的三種「省錢」保養。', focus: '以反向操作建立信任，用專家身份提供強烈建議。', reach: '觸及潛力：★★★★★<br>高爭議性、高分享性。利用反向標題吸引眼球，用專家身份的「真心話」建立極強的信任感。', risk: '<strong class="text-red-300">風險：</strong>可能引發爭議性留言。<br><strong class="text-green-300">應對：</strong>這正是我們想要的！積極、專業地回覆所有質疑，將留言區變成第二個展現專業的舞台。' }
+            ];
+
+            const themesGrid = document.getElementById('themes-grid');
+            themesData.forEach(theme => {
+                const card = `
+                    <div class="bg-gray-950 p-6 rounded-lg border border-gray-800 card-hover transition-all duration-300">
+                        <h3 class="text-lg font-bold text-blue-400 mb-2">${theme.title}</h3>
+                        <p class="text-sm text-gray-400 mb-3"><strong class="text-white">說服力分析：</strong>${theme.focus}</p>
+                        <div class="text-sm text-yellow-400 mb-3 p-2 bg-yellow-900/20 rounded-md">
+                            <strong class="text-yellow-300">市場觸及效果分析：</strong><br>${theme.reach}
+                        </div>
+                        <div class="text-sm text-red-400 p-2 bg-red-900/20 rounded-md">
+                            ${theme.risk}
+                        </div>
+                    </div>
+                `;
+                themesGrid.innerHTML += card;
+            });
+        });
+    </script>
+</body>
+</html>

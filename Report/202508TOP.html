@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025汽車自媒體市場現況分析報告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- 
+        Chosen Palette: Calm Neutrals (Slate, Stone, with a Muted Blue accent) 
+        Application Structure Plan: The application uses a four-tab dashboard structure ('Overview', 'Comparison', 'Rankings', 'Insights'). This task-oriented design allows users to directly access specific information. A key update is the addition of a "Focus Person Analysis" section within the 'Insights' tab, dedicated to "陈震同学". This fulfills the user's request for a special feature without disrupting the main navigation, transforming a key insight into an interactive case study.
+        Visualization & Content Choices: 
+        - Report Info: In-depth analysis of "陈震同学". Goal: Showcase a key market player with a real-world example. Viz/Method: A dedicated feature section in the 'Insights' tab with an embedded video player (`<iframe>`). Interaction: Users can play the video directly within the dashboard. Justification: This is the most direct and functional way to merge the report's analysis with a specific media artifact, as requested. It provides concrete evidence for the qualitative analysis.
+        - Report Info: Creator rankings. Goal: Provide comprehensive analysis. Viz/Method: Horizontal bar charts (one logarithmic). Interaction: Clicking a bar updates a detail pane with strengths/weaknesses. Justification: Prioritizes analytical depth and clarity.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #0f172a; /* slate-900 */
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            max-height: 700px;
+        }
+        .ranking-toggle-btn.active {
+            background-color: #1e293b; /* slate-800 */
+            color: white;
+            z-index: 10;
+        }
+        .stat-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0; /* slate-200 */
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .detail-pane {
+            background-color: #f1f5f9; /* slate-100 */
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .detail-pane ul {
+            list-style-position: inside;
+            padding-left: 0.5rem;
+        }
+        .detail-pane li {
+            margin-bottom: 0.25rem;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 0.5rem;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-5xl font-bold text-slate-900">2025汽車自媒體市場現況分析報告</h1>
+            <p class="text-slate-600 mt-2 text-lg">台灣 vs. 兩岸三地市場格局深度洞察</p>
+        </header>
+
+        <nav class="flex justify-center mb-8 bg-slate-200 p-2 rounded-xl shadow-inner">
+            <button data-tab="overview" class="tab-button active text-sm md:text-base font-semibold py-2 px-4 md:px-6 rounded-lg">總覽</button>
+            <button data-tab="comparison" class="tab-button text-sm md:text-base font-semibold py-2 px-4 md:px-6 rounded-lg">市場比較</button>
+            <button data-tab="rankings" class="tab-button text-sm md:text-base font-semibold py-2 px-4 md:px-6 rounded-lg">創作者排名</button>
+            <button data-tab="insights" class="tab-button text-sm md:text-base font-semibold py-2 px-4 md:px-6 rounded-lg">關鍵洞察</button>
+        </nav>
+
+        <main>
+            <section id="overview" class="content-section active">
+                <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+                    <p class="text-center text-slate-600 max-w-3xl mx-auto">本章節旨在提供一個高度概括的市場全貌，幫助您在最短時間內掌握當前汽車自媒體的宏觀趨勢、關鍵數據，並從中洞察潛在的生存與發展契機。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="stat-card md:col-span-2 lg:col-span-1">
+                        <h3 class="font-bold text-lg text-slate-900">核心發現</h3>
+                        <p class="text-slate-600 mt-2">市場呈現巨大分化：台灣市場以 <span class="font-bold text-blue-600">YouTube</span> 為核心，重視內容深度與公信力；中國大陸市場則由 <span class="font-bold text-red-600">抖音/Bilibili</span> 主導，流量與商業變現高度整合。</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="font-bold text-lg text-slate-900">流量天花板差異</h3>
+                        <p class="text-slate-600 mt-2">大陸頂級KOL粉絲數可達台灣的</p>
+                        <p class="text-5xl font-bold text-slate-900 mt-2">20-30倍</p>
+                        <p class="text-slate-500">呈現數量級的差距。</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="font-bold text-lg text-slate-900">MCN 主導權</h3>
+                        <p class="text-slate-600 mt-2">大陸市場MCN化程度極高，大型平台在幕後整合多個頭部KOL，形成矩陣式打法。</p>
+                    </div>
+                    <div class="stat-card lg:col-span-3">
+                        <h3 class="font-bold text-lg text-slate-900 text-center mb-4">市場成功公式</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="p-4 bg-slate-100 rounded-lg">
+                                <h4 class="font-bold text-center text-slate-800">台灣：信任為王</h4>
+                                <p class="text-center text-2xl mt-2">🤝 + 🎓 + ❤️</p>
+                                <p class="text-center text-slate-600 mt-1">信任 + 公信力 + 共感</p>
+                            </div>
+                            <div class="p-4 bg-slate-100 rounded-lg">
+                                <h4 class="font-bold text-center text-slate-800">中國大陸：流量為王</h4>
+                                <p class="text-center text-2xl mt-2">📈 + ♻️ + 💰</p>
+                                <p class="text-center text-slate-600 mt-1">流量 + 生態 + 商業</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="comparison" class="content-section">
+                 <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="text-2xl font-bold text-center mb-6 text-slate-900">市場生態系比較</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="border-r-0 md:border-r md:pr-8 border-slate-200">
+                            <h3 class="text-xl font-bold text-center mb-4 text-blue-600">台灣市場</h3>
+                            <div class="space-y-4">
+                                <div class="stat-card">
+                                    <h4 class="font-bold">平台核心</h4>
+                                    <p>YouTube 主導，偏好長影音深度內容。</p>
+                                </div>
+                                <div class="stat-card">
+                                    <h4 class="font-bold">創作者生態</h4>
+                                    <p>獨立創作者為主，長期深耕建立個人品牌。</p>
+                                </div>
+                                <div class="stat-card">
+                                    <h4 class="font-bold">商業模式</h4>
+                                    <p>以媒體廣告、品牌合作、線下業務導流為主，變現路徑較長。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-center mb-4 text-red-600">中國大陸市場</h3>
+                             <div class="space-y-4">
+                                <div class="stat-card">
+                                    <h4 class="font-bold">平台核心</h4>
+                                    <p>抖音/Bilibili 雙雄，短影音流量與長影音社群並存。</p>
+                                </div>
+                                <div class="stat-card">
+                                    <h4 class="font-bold">創作者生態</h4>
+                                    <p>MCN 機構化運營，矩陣式發展，高度專業分工。</p>
+                                </div>
+                                <div class="stat-card">
+                                    <h4 class="font-bold">商業模式</h4>
+                                    <p>內容到電商無縫閉環，直播帶貨、品效合一為常態。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="rankings" class="content-section">
+                <div class="text-center mb-6">
+                    <div class="relative inline-flex rounded-md shadow-sm" role="group">
+                        <button type="button" id="show-tw-chart" class="ranking-toggle-btn active px-4 py-2 text-sm font-medium border border-slate-300 rounded-l-lg hover:bg-slate-100">
+                            台灣 Top 10
+                        </button>
+                        <button type="button" id="show-cn-chart" class="ranking-toggle-btn px-4 py-2 text-sm font-medium border-t border-b border-r border-slate-300 rounded-r-lg hover:bg-slate-100">
+                            兩岸三地 Top 10
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white p-4 rounded-xl shadow-md">
+                        <div id="tw-chart-container" class="chart-container-wrapper">
+                            <div class="chart-container">
+                                <canvas id="twChart"></canvas>
+                            </div>
+                        </div>
+                        <div id="cn-chart-container" class="chart-container-wrapper" style="display: none;">
+                            <div class="chart-container">
+                                <canvas id="cnChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-pane">
+                        <h3 id="detail-title" class="text-xl font-bold text-slate-900 mb-2">點擊圖表查看詳情</h3>
+                        <p id="detail-host" class="text-slate-700 font-semibold mb-2"></p>
+                        <p id="detail-subs" class="text-slate-600 mb-4"></p>
+                        
+                        <h4 class="font-bold text-slate-800 mt-4">市場特殊價值</h4>
+                        <p id="detail-value" class="text-slate-600 mt-1"></p>
+
+                        <div id="strengths-weaknesses-container">
+                            <h4 class="font-bold text-slate-800 mt-4">優勢分析</h4>
+                            <ul id="detail-strengths" class="text-slate-600 mt-1 list-disc"></ul>
+
+                            <h4 class="font-bold text-slate-800 mt-4">劣勢分析</h4>
+                            <ul id="detail-weaknesses" class="text-slate-600 mt-1 list-disc"></ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="insights" class="content-section">
+                <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+                    <h2 class="text-2xl font-bold text-center mb-6 text-slate-900">焦點人物分析：市場的「終極權威」</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                        <div class="lg:col-span-3">
+                            <h3 class="text-2xl font-bold text-red-600">陈震同学</h3>
+                            <p class="font-semibold mt-2 text-slate-700">身份：賽車傳奇 + 維修廠主 + 媒體帝國</p>
+                            <p class="mt-4 text-slate-600">陳震是整個華語市場中，將「實戰經驗、技術知識、市場影響力」三者結合得最完美的創作者。他不僅僅是評測車輛，更在塑造市場的品味與趨勢。下面的影片完美體現了他如何將這三重身份融為一體：</p>
+                            <ul class="list-disc pl-5 mt-2 space-y-1 text-slate-600">
+                                <li><b>賽車手視角：</b>對車輛動態極限的精準判斷。</li>
+                                <li><b>維修廠背景：</b>對機械結構與潛在問題的深度洞察。</li>
+                                <li><b>媒體影響力：</b>將專業知識轉化為引人入勝、製作精良的內容，影響千萬粉絲。</li>
+                            </ul>
+                        </div>
+                        <div class="lg:col-span-2">
+                           <div class="video-container shadow-lg">
+                                <iframe src="https://player.bilibili.com/player.html?bvid=BV1rb4y1E72s&page=1&as_wide=1&high_quality=1&danmaku=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+                           </div>
+                           <p class="text-center text-sm text-slate-500 mt-2">代表作：深度解析小米SU7</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="text-2xl font-bold text-center mb-6 text-slate-900">其他關鍵洞察</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                        <div class="p-4 text-center stat-card">
+                            <div class="text-4xl mb-2">🤝</div>
+                            <h4 class="font-bold">信任錨點：小施汽車</h4>
+                            <p class="text-sm text-slate-600 mt-1">在台灣市場，小施汽車透過極致透明度，成為中古車領域的信任代名詞。</p>
+                        </div>
+                        <div class="p-4 text-center stat-card">
+                            <div class="text-4xl mb-2">⚡️</div>
+                            <h4 class="font-bold">趨勢：電動車革命</h4>
+                            <p class="text-sm text-slate-600 mt-1">內容重心正快速向「三電」、智能座艙轉移。</p>
+                        </div>
+                        <div class="p-4 text-center stat-card">
+                            <div class="text-4xl mb-2">👥</div>
+                            <h4 class="font-bold">趨勢：私域流量</h4>
+                            <p class="text-sm text-slate-600 mt-1">從公域平台導流至自有社群，實現精細化運營。</p>
+                        </div>
+                        <div class="p-4 text-center stat-card">
+                            <div class="text-4xl mb-2">💯</div>
+                            <h4 class="font-bold">趨勢：真實性競賽</h4>
+                            <p class="text-sm text-slate-600 mt-1">無濾鏡、真實的內容將獲得更高用戶信任。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 text-slate-500 text-sm">
+            <p>數據來源：汽車自媒體現狀：2025年台灣與兩岸三地頂級創作者深度分析報告</p>
+        </footer>
+    </div>
+
+    <script>
+        const twData = [
+            { name: 'GO車誌', subs: 792000, host: '嘉偉', value: '台灣汽車影音評測的行業標竿與公信力基準', strengths: ['製作水準與技術分析能力極高', '長期建立的公信力與客觀中立形象', '透過子品牌成功拓展受眾'], weaknesses: ['節目風格較傳統、制式', '對市場熱點反應速度可能較慢'] },
+            { name: '小施汽車', subs: 600000, host: '小施', value: '中古車領域的信任度頂點，將透明度化為品牌護城河', strengths: ['無可比擬的真實性與信任感', '完美的線上內容到線下業務的商業閉環', '粉絲忠誠度與社群凝聚力極高'], weaknesses: ['內容高度垂直於中古車領域', '個人風格強烈，規模化擴張受限'] },
+            { name: '全民瘋車BAR', subs: 520000, host: '廖怡塵', value: '結合專業與娛樂性的代表，對年輕族群具強大號召力', strengths: ['主持人極富感染力的個人魅力', '敘事結構清晰，節奏明快，觀賞性強', '結合生活風格，受眾範圍廣'], weaknesses: ['內容技術深度略遜於頂級專業頻道', '成功高度依賴主持人，存在關鍵人物風險'] },
+            { name: '地球黃金線', subs: 472000, host: '蘇宗怡', value: '觸及最廣泛主流觀眾的門戶，汽車話題的普及者', strengths: ['議題覆蓋面最廣，無所不包', '成熟電視IP，自帶主流市場知名度', '品牌向大眾市場滲透的絕佳平台'], weaknesses: ['內容深度較淺，無法滿足核心車迷', '節目風格與原生數位內容存在差異'] },
+            { name: '8891汽車', subs: 307000, host: '-', value: '數據驅動的客觀評測，背靠交易平台具備商業閉環潛力', strengths: ['背靠大型平台，資源穩定', '強調客觀數據，在市場中定位獨特', '與交易平台結合，商業轉化潛力巨大'], weaknesses: ['商業背景可能影響中立性觀感', '內容風格較嚴肅，娛樂性相對較弱'] },
+            { name: 'SiCAR愛車酷', subs: 305000, host: '-', value: '強調與觀眾互動，內容風格活潑，社群黏著度高', strengths: ['社群互動性強，粉絲黏著度高', '內容風格活潑，吸引年輕族群'], weaknesses: ['商業模式較傳統', '影響力相對局限於特定社群'] },
+            { name: '冠儀試車', subs: 218000, host: '冠儀', value: 'GO車誌子品牌，填補了女性觀點的市場空白', strengths: ['精準切入女性視角市場缺口', '繼承主品牌的專業與公信力'], weaknesses: ['主題較為局限', '觀眾群體相對垂直'] },
+            { name: 'U-CAR', subs: 149000, host: '-', value: '傳統汽車媒體的權威延伸，新聞性與深度兼具', strengths: ['新聞更新快，資訊嚴謹', '具備傳統媒體的深度報導能力'], weaknesses: ['影音呈現方式較傳統', '流量相對較低'] },
+            { name: 'TCar', subs: 140000, host: '-', value: '電影級製作水準，視覺風格強烈', strengths: ['視覺呈現是頂級水準', '專注駕馭感受，風格獨特'], weaknesses: ['更新頻率可能較慢', '製作成本高'] },
+            { name: '狂人日誌', subs: 130000, host: 'TUBE', value: '觀點犀利，硬核車迷的聚集地', strengths: ['觀點獨到犀利，吸引核心粉絲', '主持人IP形象鮮明'], weaknesses: ['受眾群體較為小眾', '內容主觀性較強'] }
+        ];
+
+        const cnData = [
+            { name: '懂车侦探', subs: 25900000, value: '短影音科普、汽車知識破解；廣告驅動與平台整合營銷', strengths: ['抖音平台絕對的流量王者，觸及面極廣', '內容完美契合短影音演算法，易於傳播', '商業變現模式成熟'], weaknesses: ['內容深度較淺，生命週期短', '專業度在核心車迷中有爭議'] },
+            { name: '小刚学长', subs: 14850000, value: '爭議性話題、極端測試；高流量廣告變現', strengths: ['極強的話題製造能力，擅長引爆流量', '測試方式吸引眼球，記憶點強'], weaknesses: ['內容真實性與科學性常受質疑', '品牌形象風險較高'] },
+            { name: '余承东', subs: 13460000, value: '華為高管、技術發布；企業家IP、品牌光環驅動', strengths: ['企業家IP自帶光環與權威性', '直接傳遞品牌與技術信息，無需中間商', '粉絲多為品牌忠實用戶或潛在消費者'], weaknesses: ['內容完全為品牌服務，不具備中立性', '個人IP與品牌高度綁定'] },
+            { name: '陈震同学', subs: 10720000, value: '專業評測、自駕旅行、賽車文化；MCN矩陣運營、高端品牌合作', strengths: ['無可匹敵的實戰派權威背景', '內容製作精良且形態多樣', '成熟的MCN運營與商業化能力'], weaknesses: ['內容聚焦高端，與普通大眾有距離感', '製作成本高，週期長'] },
+            { name: '说车的阿飞', subs: 8160000, value: '汽車銷售視角、實用技巧；內容電商、銷售線索導流', strengths: ['內容極度貼近消費者購車場景', '實用性強，能直接解答用戶疑問'], weaknesses: ['內容同質化程度較高', '個人IP特色相對不鮮明'] },
+            { name: '牛哥说车', subs: 6560000, value: '汽車知識講解、行業分析；廣告合作、知識付費', strengths: ['內容深入淺出，善於講解複雜知識', '在行業分析領域具備一定權威性'], weaknesses: ['影片呈現形式較為單一', '流量增長可能面臨瓶頸'] },
+            { name: '溜溜哥', subs: 5930000, value: '改裝文化、京味侃車；個人IP、周邊商品、線下活動', strengths: ['在改裝車領域具備極高影響力', '個人IP鮮明，社群文化濃厚'], weaknesses: ['受眾群體高度垂直', '內容風格難以被主流大眾完全接受'] },
+            { name: '李老鼠说车', subs: 4000000, value: '中古車鑑定、行業先驅；中古車電商、品牌背書、MCN分成', strengths: ['中古車內容領域的開創者與權威', '風格接地氣，實用性強，信任度高', '經歷完整創業週期，經驗豐富'], weaknesses: ['近年影響力相對早期有所下滑', '商業化與內容中立性之間存在平衡挑戰'] },
+            { name: '极速拍档', subs: 3000000, value: '高製作水準、劇情化評測；MCN旗下王牌、高端品牌整合營銷', strengths: ['電影級的高製作水準，觀賞性極強', '背靠騰訊與易車，資源雄厚', '擅長將品牌信息融入故事'], weaknesses: ['內容娛樂性大於專業性', '製作成本極高，難以複製'] },
+            { name: '38号不只会评车', subs: 2500000, value: '硬核技術評測、自費購車；獨立IP、粉絲經濟、無商業廣告', strengths: ['絕對客觀中立，自費評測建立極高信譽', '技術分析極度深入，吸引硬核粉絲', '在核心車迷圈中擁有至高話語權'], weaknesses: ['內容冗長且術語多，觀看門檻高', '堅決不商業合作，變現渠道單一'] }
+        ];
+
+        const detailTitle = document.getElementById('detail-title');
+        const detailHost = document.getElementById('detail-host');
+        const detailSubs = document.getElementById('detail-subs');
+        const detailValue = document.getElementById('detail-value');
+        const detailStrengths = document.getElementById('detail-strengths');
+        const detailWeaknesses = document.getElementById('detail-weaknesses');
+        const strengthsWeaknessesContainer = document.getElementById('strengths-weaknesses-container');
+
+        let twChart, cnChart;
+
+        function formatSubs(num) {
+            if (num >= 10000000) {
+                return `${(num / 10000).toFixed(0)} 萬+`;
+            }
+            if (num >= 10000) {
+                return `${(num / 10000).toFixed(1)} 萬+`;
+            }
+             if (num >= 1000) {
+                return `${(num / 1000).toFixed(1)} 千+`;
+            }
+            return `${num.toLocaleString()} +`;
+        }
+        
+        function updateDetailPane(data) {
+            detailTitle.textContent = data.name;
+            detailHost.textContent = data.host ? `主持人: ${data.host}` : '';
+            detailSubs.textContent = `粉絲數: ${formatSubs(data.subs)}`;
+            detailValue.textContent = data.value;
+
+            if (data.strengths && data.weaknesses) {
+                strengthsWeaknessesContainer.style.display = 'block';
+                detailStrengths.innerHTML = data.strengths.map(s => `<li>${s}</li>`).join('');
+                detailWeaknesses.innerHTML = data.weaknesses.map(w => `<li>${w}</li>`).join('');
+            } else {
+                strengthsWeaknessesContainer.style.display = 'none';
+            }
+        }
+
+        function createTwChart() {
+            const ctx = document.getElementById('twChart').getContext('2d');
+            const sortedData = [...twData].sort((a, b) => b.subs - a.subs);
+            twChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sortedData.map(d => d.name),
+                    datasets: [{
+                        label: 'YouTube 訂閱數',
+                        data: sortedData.map(d => d.subs),
+                        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value / 1000 + 'K';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: '台灣 Top 10 汽車自媒體 (YouTube 訂閱數)'
+                        },
+                        tooltip: {
+                             callbacks: {
+                                label: function(context) {
+                                    return `訂閱數: ${context.raw.toLocaleString()}`;
+                                }
+                            }
+                        }
+                    },
+                    onClick: (e, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            updateDetailPane(sortedData[index]);
+                        }
+                    }
+                }
+            });
+        }
+
+        function createCnChart() {
+            const ctx = document.getElementById('cnChart').getContext('2d');
+            const sortedData = [...cnData].sort((a, b) => b.subs - a.subs);
+            
+            cnChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: sortedData.map(d => d.name),
+                    datasets: [{
+                        label: '綜合粉絲數',
+                        data: sortedData.map(d => d.subs),
+                        backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            type: 'logarithmic',
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    if (value === 10000000 || value === 1000000 || value === 100000 || value === 10000) {
+                                        return formatSubs(value);
+                                    }
+                                    return null;
+                                },
+                                 font: {
+                                    size: 10
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: '兩岸三地 Top 10 汽車自媒體 (綜合粉絲數 - 對數刻度)'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `粉絲數: ${context.raw.toLocaleString()}`;
+                                }
+                            }
+                        }
+                    },
+                     onClick: (e, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const clickedData = sortedData.find(d => d.name === cnChart.data.labels[index]);
+                            if(clickedData) {
+                                updateDetailPane(clickedData);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-button');
+            const sections = document.querySelectorAll('.content-section');
+            const rankingToggles = document.querySelectorAll('.ranking-toggle-btn');
+            const twChartContainer = document.getElementById('tw-chart-container');
+            const cnChartContainer = document.getElementById('cn-chart-container');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    const target = tab.getAttribute('data-tab');
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === target) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
+            });
+
+            rankingToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    rankingToggles.forEach(t => t.classList.remove('active'));
+                    toggle.classList.add('active');
+
+                    if (toggle.id === 'show-tw-chart') {
+                        twChartContainer.style.display = 'block';
+                        cnChartContainer.style.display = 'none';
+                    } else {
+                        twChartContainer.style.display = 'none';
+                        cnChartContainer.style.display = 'block';
+                    }
+                });
+            });
+
+            createTwChart();
+            createCnChart();
+        });
+    </script>
+</body>
+</html>
