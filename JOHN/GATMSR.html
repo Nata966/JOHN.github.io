@@ -10,11 +10,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Midnight Blue & Cyber Glow -->
-    <!-- Application Structure Plan: A vertical, scrollable SPA reframed as a "Marketing Blueprint". The sections are: 1. **企劃核心**. 2. **市場數據**. 3. **戰略工具解析**: A new section explaining SEO vs. Ads. 4. **執行藍圖**. 5. **模擬成品**. 6. **獲客漏斗**. 7. **商業效益**. This structure is heavily focused on interaction and data visualization. -->
+    <!-- Application Structure Plan: A vertical, scrollable SPA reframed as a "Marketing Blueprint". Sections: 1. **企劃核心**. 2. **市場數據**. 3. **執行藍圖**. 4. **模擬成品**. 5. **圖文行銷產出SOP**: A new visual workflow. 6. **平台差異化戰略**: A new, detailed section with a strong focus on Dcard's SEO potential. 7. **獲客漏斗**. 8. **商業效益**. This version is now a complete internal execution guide. -->
     <!-- Visualization & Content Choices: 
-        - Report Info: SEO vs. Ads -> Goal: Educate/Explain -> Viz: A two-card side-by-side comparison using strong metaphors ("Building a Mansion" vs. "Renting a Billboard"). -> Justification: This analogy-driven approach makes complex digital marketing concepts extremely easy for a non-technical client to understand and appreciate. -> Library/Method: HTML/Tailwind.
-        - Report Info: Market Data & Opportunity -> Goal: Explain/Inform -> Viz: A Chart.js bar chart paired with interactive buttons. -> Interaction: Clicking buttons highlights relevant bars on the chart. -> Justification: Makes data exploration guided and insightful. -> Library/Method: Chart.js (Canvas), HTML/Tailwind, JS.
-        - Report Info: Execution Blueprint -> Goal: Organize/Instruct -> Viz: An interactive 3-step guide with buttons with detailed steps. -> Interaction: Clicking each step button reveals detailed instructions. -> Justification: Transforms a static list into an engaging, user-controlled process explanation. -> Library/Method: HTML/Tailwind, JS.
+        - Report Info: SOP Workflow -> Goal: Instruct/Organize -> Viz: A 4-phase visual diagram with icons and clear responsibilities. -> Justification: This new section makes the entire content production process transparent and easy to follow for the client's team. -> Library/Method: HTML/Tailwind.
+        - Report Info: Platform Strategy (Dcard) -> Goal: Explain advanced strategy -> Viz: An enhanced card for Dcard explaining its role as an SEO asset. -> Justification: Directly addresses the user's key insight about long-term traffic, demonstrating a higher level of strategic thinking. -> Library/Method: HTML/Tailwind.
+        - Report Info: Mockup -> Goal: Visualize/Engage -> Viz: Interactive IG-style carousel. -> Justification: The centerpiece that makes the plan tangible. -> Library/Method: HTML/Tailwind, Vanilla JS.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -88,10 +88,10 @@
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="#core" class="nav-link px-3 py-2 rounded-md text-sm font-medium">企劃核心</a>
                         <a href="#market-data" class="nav-link px-3 py-2 rounded-md text-sm font-medium">市場數據</a>
-                        <a href="#tools" class="nav-link px-3 py-2 rounded-md text-sm font-medium">戰略工具</a>
                         <a href="#blueprint" class="nav-link px-3 py-2 rounded-md text-sm font-medium">執行藍圖</a>
                         <a href="#mockup" class="nav-link px-3 py-2 rounded-md text-sm font-medium">模擬成品</a>
-                        <a href="#funnel" class="nav-link px-3 py-2 rounded-md text-sm font-medium">獲客漏斗</a>
+                        <a href="#sop" class="nav-link px-3 py-2 rounded-md text-sm font-medium">產出SOP</a>
+                        <a href="#platform-strategy" class="nav-link px-3 py-2 rounded-md text-sm font-medium">平台戰略</a>
                         <a href="#benefits" class="nav-link px-3 py-2 rounded-md text-sm font-medium">商業效益</a>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
 
         <section id="hero" class="text-center py-16 md:py-24">
             <h1 class="text-4xl md:text-5xl font-bold text-blue-400">旗艦專案行銷藍圖</h1>
-            <p class="mt-4 text-lg md:text-xl text-gray-400">BMW E82 135i 引擎重生計畫</p>
+            <p class="mt-4 text-lg md:text-xl text-gray-400">一個將頂尖技術轉化為品牌信任的作戰手冊</p>
         </section>
 
         <section id="core" class="mb-16 scroll-mt-24">
@@ -150,36 +150,6 @@
             </div>
         </section>
 
-        <section id="tools" class="mb-16 scroll-mt-24">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-blue-400">戰略工具解析：SEO vs. 關鍵字廣告</h2>
-                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">為了捕獲我們在市場數據中看到的龐大搜尋流量，我們將運用兩種核心工具。理解這兩者的區別，是制定成功策略的關鍵。</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
-                    <div class="text-center text-4xl mb-4">🏡</div>
-                    <h3 class="font-bold text-xl mb-3 text-white text-center">SEO (搜尋引擎優化)：蓋豪宅</h3>
-                    <p class="text-gray-400 text-sm mb-4">我們透過優化網站、撰寫高品質的專業文章（如135i維修實錄），讓Google認為我們是該領域的專家，從而給予我們<span class="highlight">免費且穩定</span>的自然搜尋排名。</p>
-                    <ul class="text-sm space-y-2">
-                        <li><strong class="text-gray-200">費用模式：</strong>技術與時間成本 (長期投資)</li>
-                        <li><strong class="text-gray-200">見效時間：</strong>較慢 (3-6個月以上)</li>
-                        <li><strong class="text-green-400">效果持續性：</strong>長期有效，具複利效應</li>
-                    </ul>
-                </div>
-                <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
-                    <div class="text-center text-4xl mb-4">📢</div>
-                    <h3 class="font-bold text-xl mb-3 text-white text-center">買關鍵字 (付費廣告)：租看板</h3>
-                    <p class="text-gray-400 text-sm mb-4">我們直接付費給Google，讓強尼車坊的資訊<span class="highlight">立即出現</span>在搜尋結果的最頂端，主動攔截那些最有消費意圖的客戶。</p>
-                     <ul class="text-sm space-y-2">
-                        <li><strong class="text-gray-200">費用模式：</strong>按點擊次數付費 (立即性支出)</li>
-                        <li><strong class="text-gray-200">見效時間：</strong>立即見效 (廣告上線即可)</li>
-                        <li><strong class="text-red-400">效果持續性：</strong>停止付費，效果立即消失</li>
-                    </ul>
-                </div>
-            </div>
-             <p class="mt-8 text-center text-lg text-gray-300 max-w-3xl mx-auto">我們的策略是<span class="highlight">兩者並行</span>：以<span class="highlight">SEO</span>為核心，為品牌建立能長期帶來回報的數位資產（蓋豪宅）；在初期，則搭配<span class="highlight">關鍵字廣告</span>（租看板），在豪宅蓋好前，就先開始迎接最高價值的客戶。</p>
-        </section>
-
         <section id="blueprint" class="mb-16 scroll-mt-24">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-blue-400">執行藍圖：三步打造您的數位資產</h2>
@@ -199,21 +169,20 @@
 
         <section id="mockup" class="mb-16 scroll-mt-24">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-blue-400">模擬成品：從IG貼文到專業文章</h2>
-                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">左側是我們熟悉的IG貼文，右側則是它升級後的樣貌——一篇能長期吸引搜尋流量的專業知識文章。</p>
+                <h2 class="text-3xl font-bold text-blue-400">模擬成品：IG 旗艦貼文</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">這是一個可互動的IG貼文範例，展示了系列貼文的最終呈現樣貌。點擊左右箭頭瀏覽。</p>
             </div>
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <div class="phone-mockup mx-auto">
-                    <div class="phone-screen">
-                        <div class="p-3 bg-white border-b border-gray-200 flex items-center justify-between text-gray-800">
-                            <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-blue-700 text-white flex items-center justify-center font-bold text-sm">強</div>
-                                <span class="ml-2 font-bold text-sm">強尼車坊</span>
-                            </div>
-                             <span class="font-bold">...</span>
+            <div class="phone-mockup mx-auto">
+                <div class="phone-screen">
+                    <div class="p-3 bg-white border-b border-gray-200 flex items-center justify-between text-gray-800">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-blue-700 text-white flex items-center justify-center font-bold text-sm">強</div>
+                            <span class="ml-2 font-bold text-sm">強尼車坊</span>
                         </div>
-                        <div class="relative flex-1 bg-black">
-                             <div id="carousel-container"></div>
+                         <span class="font-bold">...</span>
+                    </div>
+                    <div class="relative flex-1 bg-black">
+                         <div id="carousel-container"></div>
                             <button id="prevBtn" class="absolute top-1/2 left-2 -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-full p-1 transition">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                             </button>
@@ -224,14 +193,86 @@
                         <div id="caption-container" class="p-3 bg-white text-xs text-gray-700 overflow-y-auto" style="max-height: 150px;"></div>
                     </div>
                 </div>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg h-full">
-                    <h3 class="text-xl font-bold text-white">【職人日誌】BMW E82 135i N54引擎通病大解析與重生實錄</h3>
-                    <p class="text-xs text-gray-500 mt-1">發布於 2025年8月5日 / 作者：強尼車坊</p>
-                    <hr class="border-gray-700 my-4">
-                    <p class="text-sm text-gray-400 mb-4">當一台經典的E82 135i駛入我們廠內，車主帶著一絲憂慮，訴說著動力流失與不正常的抖動時，我們知道，這又是一次與傳奇N54引擎的深度對話...</p>
-                    <img src="https://i.postimg.cc/bNSjj3K8/1.png" class="rounded-md my-4">
-                    <h4 class="font-bold text-white">心臟解剖：問題根源的探索</h4>
-                    <p class="text-sm text-gray-400 mt-2">引擎拆解後，我們發現了典型的N54通病——活塞環因高溫高壓而斷裂。這不僅是動力流失的元兇，更是潛在的更大引擎損傷的開始...</p>
+        </section>
+
+        <section id="sop" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">圖文行銷產出SOP</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">我們將遵循一套標準化作業流程，確保每一次的內容產出都兼具品質與效率。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <div class="text-4xl mb-4">📝</div>
+                    <h3 class="font-bold text-lg mb-2 text-white">1. 企劃</h3>
+                    <ul class="text-sm text-gray-400 text-left list-disc list-inside">
+                        <li>主題發想</li>
+                        <li>故事線規劃</li>
+                        <li>文案初稿</li>
+                        <li>拍攝清單</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <div class="text-4xl mb-4">📸</div>
+                    <h3 class="font-bold text-lg mb-2 text-white">2. 製作</h3>
+                     <ul class="text-sm text-gray-400 text-left list-disc list-inside">
+                        <li>照片拍攝</li>
+                        <li>素材篩選</li>
+                        <li>照片精修</li>
+                        <li>文案定稿</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <div class="text-4xl mb-4">🚀</div>
+                    <h3 class="font-bold text-lg mb-2 text-white">3. 發布</h3>
+                     <ul class="text-sm text-gray-400 text-left list-disc list-inside">
+                        <li>平台排程</li>
+                        <li>Hashtag策略</li>
+                        <li>貼文發布</li>
+                        <li>社團分享</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="font-bold text-lg mb-2 text-white">4. 優化</h3>
+                     <ul class="text-sm text-gray-400 text-left list-disc list-inside">
+                        <li>社群互動管理</li>
+                        <li>成效數據追蹤</li>
+                        <li>粉絲回饋分析</li>
+                        <li>內容策略調整</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="platform-strategy" class="mb-16 scroll-mt-24">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-400">平台差異化戰略</h2>
+                <p class="mt-4 text-lg text-gray-400 max-w-3xl mx-auto">不同的社群平台如同不同的戰場，需要截然不同的戰術。我們將針對各平台特性，最大化內容效益。</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2 text-pink-400">Instagram：品牌形象的櫥窗</h3>
+                    <p class="text-sm text-gray-400 mb-3"><strong>平台特性：</strong>視覺為主、美學導向、故事性強。</p>
+                    <p class="text-sm text-gray-400 mb-3"><strong>內容策略：</strong>使用高品質、精修過的照片，製作成輪播貼文來講述故事。用 Stories 分享幕後花絮、Q&A。</p>
+                    <p class="text-sm text-gray-400"><strong class="text-white">預期成效：</strong>建立<span class="highlight">品牌專業形象</span>與<span class="highlight">視覺美學</span>，快速觸及廣泛的年輕族群。</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2 text-blue-400">Facebook：核心社群的根據地</h3>
+                    <p class="text-sm text-gray-400 mb-3"><strong>平台特性：</strong>社群連結、深度討論、可建立粉絲專頁與社團。</p>
+                    <p class="text-sm text-gray-400 mb-3"><strong>內容策略：</strong>發布完整的系列圖文，並在文案中引導更深入的討論。將貼文分享至相關的 BMW 或性能車社團。</p>
+                    <p class="text-sm text-gray-400"><strong class="text-white">預期成效：</strong><span class="highlight">凝聚核心粉絲社群</span>，建立長期信任關係，是<span class="highlight">潛在客戶轉化</span>的主要陣地。</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2 text-white">Threads：即時互動的聊天室</h3>
+                    <p class="text-sm text-gray-400 mb-3"><strong>平台特性：</strong>即時性、對話導向、文字為主、節奏快。</p>
+                    <p class="text-sm text-gray-400 mb-3"><strong>內容策略：</strong>將每一張照片作為一個獨立的「更新點」，用簡短、口語化的文字分享當下的進度或發現。</p>
+                    <p class="text-sm text-gray-400"><strong class="text-white">預期成效：</strong>建立<span class="highlight">品牌人格的真實感與親切感</span>，增加粉絲黏著度。</p>
+                </div>
+                <div class="bg-blue-900/30 border-2 border-blue-500 p-6 rounded-lg">
+                    <h3 class="font-bold text-lg mb-2 text-green-400">Dcard：技術文獻庫與SEO灘頭堡</h3>
+                    <p class="text-sm text-gray-300 mb-3"><strong>平台特性：</strong>年輕族群、匿名性高、<span class="highlight">Google搜尋權重高</span>。</p>
+                    <p class="text-sm text-gray-300 mb-3"><strong>內容策略：</strong>必須以「<span class="highlight">車友分享</span>」而非「店家廣告」的角度發文。將整個維修過程，寫成一篇充滿心路歷程、圖文並茂的<span class="highlight">深度技術文章</span>，並在標題與內文佈局關鍵字。</p>
+                    <p class="text-sm text-gray-300"><strong class="text-white">預期成效：</strong>不僅能引發病毒式口碑擴散，更能成為一個**長期有效的「Google搜尋流量入口」**，直接攔截遇到緊急狀況、正在搜尋答案的高價值客戶。</p>
                 </div>
             </div>
         </section>
